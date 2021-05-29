@@ -17,6 +17,8 @@
     <quarkus.platform.group-id>io.quarkus</quarkus.platform.group-id>
     <quarkus.platform.version>1.13.6.Final</quarkus.platform.version>
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
+    <jodatimeVersion>2.2</jodatimeVersion>
+    <jodatimeHibernateVersion>1.3</jodatimeHibernateVersion>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -64,6 +66,20 @@
       <artifactId>rest-assured</artifactId>
       <scope>test</scope>
     </dependency>
+
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+      <version>${jodatimeVersion}</version>
+      <type>jar</type>
+    </dependency>
+
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time-hibernate</artifactId>
+      <version>${jodatimeHibernateVersion}</version>
+    </dependency>
+
   </dependencies>
   <build>
     <plugins>
