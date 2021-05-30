@@ -1,6 +1,18 @@
 package org.standrews.schedulingsurgeries.domain;
 
-public class Surgery {
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import org.optaplanner.core.api.domain.lookup.PlanningId;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class Surgery extends PanacheEntityBase {
+    @PlanningId
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long surgeryId;
     private String patient;
     private String surgeon;
@@ -13,6 +25,18 @@ public class Surgery {
     private Integer procedureDuration;
 
     public Surgery() {
+    }
+
+    public Surgery(String patient, String surgeon, String anesthesiaType, String anesthetist, String speciality, String surgeryType, String insuranceName, String procedureName, Integer procedureDuration) {
+        this.patient = patient;
+        this.surgeon = surgeon;
+        this.anesthesiaType = anesthesiaType;
+        this.anesthetist = anesthetist;
+        this.speciality = speciality;
+        this.surgeryType = surgeryType;
+        this.insuranceName = insuranceName;
+        this.procedureName = procedureName;
+        this.procedureDuration = procedureDuration;
     }
 
     public Long getSurgeryId() {

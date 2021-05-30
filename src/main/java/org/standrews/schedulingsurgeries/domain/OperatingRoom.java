@@ -1,6 +1,18 @@
 package org.standrews.schedulingsurgeries.domain;
 
-public class OperatingRoom {
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
+import org.optaplanner.core.api.domain.lookup.PlanningId;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class OperatingRoom extends PanacheEntityBase {
+    @PlanningId
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long operatingRoomId;
     private String operatingRoomName;
     private String openingTime;
@@ -29,5 +41,10 @@ public class OperatingRoom {
 
     public String getClosingTime() {
         return closingTime;
+    }
+
+    @Override
+    public String toString() {
+        return operatingRoomName;
     }
 }

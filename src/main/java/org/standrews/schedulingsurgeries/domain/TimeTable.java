@@ -1,51 +1,85 @@
 package org.standrews.schedulingsurgeries.domain;
 
 import org.joda.time.DateTime;
+import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
+import org.optaplanner.core.api.domain.solution.PlanningScore;
+import org.optaplanner.core.api.domain.solution.PlanningSolution;
+import org.optaplanner.core.api.domain.solution.ProblemFactCollectionProperty;
+import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
+import org.optaplanner.core.api.solver.SolverStatus;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@PlanningSolution
 public class TimeTable {
 
-    private List<DateTime> startingTimeSurgeriesList;
-    private List<OperatingRoom> operatingRoomsList;
-    private List<Surgery> surgeriesList;
-    private List<ScheduledSurgery> scheduledSurgeriesList;
+    @ValueRangeProvider(id = "startingSurgeryRange")
+    @ProblemFactCollectionProperty
+    private List<DateTime> startingTimeSurgeries;
+    @ValueRangeProvider(id = "roomRange")
+    @ProblemFactCollectionProperty
+    private List<OperatingRoom> operatingRooms;
+    @ProblemFactCollectionProperty
+    private List<Surgery> surgeries;
+    @PlanningEntityCollectionProperty
+    private List<ScheduledSurgery> scheduledSurgeries;
+    @PlanningScore
     private HardSoftScore scoreSolver;
+    private SolverStatus solverStatus;
 
     public TimeTable(){
     }
 
-    public List<DateTime> getStartingTimeSurgeriesList() {
-        return startingTimeSurgeriesList;
+    public TimeTable(List<OperatingRoom> operatingRooms, List<Surgery> surgeries, List<ScheduledSurgery> scheduledSurgeries) {
+        setStartingTimeSurgeries();
+        this.operatingRooms = operatingRooms;
+        this.surgeries = surgeries;
+        this.scheduledSurgeries = scheduledSurgeries;
     }
 
-    public void setStartingTimeSurgeriesList(List<DateTime> startingTimeSurgeriesList) {
-        this.startingTimeSurgeriesList = startingTimeSurgeriesList;
+    public List<DateTime> getStartingTimeSurgeries() {
+        return startingTimeSurgeries;
     }
 
-    public List<OperatingRoom> getOperatingRoomsList() {
-        return operatingRoomsList;
+    public void setStartingTimeSurgeries(List<DateTime> startingTimeSurgeries) {
+        this.startingTimeSurgeries = startingTimeSurgeries;
     }
 
-    public void setOperatingRoomsList(List<OperatingRoom> operatingRoomsList) {
-        this.operatingRoomsList = operatingRoomsList;
+
+    public void setStartingTimeSurgeries() {
+        this.startingTimeSurgeries = new ArrayList<>();
+        DateTime startingTime = new DateTime(2021, 05, 25, 7, 30);
+        DateTime endTime = startingTime.plusHours(24);
+        while (startingTime.isBefore(endTime)) {
+            startingTimeSurgeries.add(startingTime);
+            startingTime = startingTime.plusMinutes(30);
+        }
     }
 
-    public List<Surgery> getSurgeriesList() {
-        return surgeriesList;
+    public List<OperatingRoom> getOperatingRooms() {
+        return operatingRooms;
     }
 
-    public void setSurgeriesList(List<Surgery> surgeriesList) {
-        this.surgeriesList = surgeriesList;
+    public void setOperatingRooms(List<OperatingRoom> operatingRooms) {
+        this.operatingRooms = operatingRooms;
     }
 
-    public List<ScheduledSurgery> getScheduledSurgeriesList() {
-        return scheduledSurgeriesList;
+    public List<Surgery> getSurgeries() {
+        return surgeries;
     }
 
-    public void setScheduledSurgeriesList(List<ScheduledSurgery> scheduledSurgeriesList) {
-        this.scheduledSurgeriesList = scheduledSurgeriesList;
+    public void setSurgeries(List<Surgery> surgeries) {
+        this.surgeries = surgeries;
+    }
+
+    public List<ScheduledSurgery> getScheduledSurgeries() {
+        return scheduledSurgeries;
+    }
+
+    public void setScheduledSurgeries(List<ScheduledSurgery> scheduledSurgeries) {
+        this.scheduledSurgeries = scheduledSurgeries;
     }
 
     public HardSoftScore getScoreSolver() {
@@ -56,13 +90,20 @@ public class TimeTable {
         this.scoreSolver = scoreSolver;
     }
 
+    public void setSolverStatus(SolverStatus solverStatus) {
+        this.solverStatus = solverStatus;
+    }
+
+    /*
     public String getAllScheduledSurgeries() {
         StringBuilder scheduledSurgeriesInformation = new StringBuilder();
-        List<ScheduledSurgery> scheduledSurgeries = this.getScheduledSurgeriesList();
+        List<ScheduledSurgery> scheduledSurgeries = this.getScheduledSurgeries();
         for (ScheduledSurgery scheduledSurgery: scheduledSurgeries) {
             scheduledSurgeriesInformation.append(scheduledSurgery.getInformationScheduledSurgery());
             scheduledSurgeriesInformation.append("\n");
         }
         return scheduledSurgeriesInformation.toString();
     }
+
+     */
 }

@@ -1,14 +1,26 @@
 package org.standrews.schedulingsurgeries.domain;
 
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import org.optaplanner.core.api.domain.entity.PlanningEntity;
+import org.optaplanner.core.api.domain.lookup.PlanningId;
+import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
-public class ScheduledSurgery {
+import javax.persistence.*;
 
+@PlanningEntity
+@Entity
+public class ScheduledSurgery extends PanacheEntityBase {
+    @PlanningId
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long scheduleSurgeryId;
+    @OneToOne
     private Surgery surgery;
+    @ManyToOne
     private OperatingRoom operatingRoom;
     private DateTime startingTimeSurgery;
     private DateTime finishingTimeSurgery;
@@ -16,10 +28,15 @@ public class ScheduledSurgery {
     public ScheduledSurgery(){
     }
 
-    public ScheduledSurgery(Surgery surgery, DateTime startingTimeSurgery, DateTime finishingTimeSurgery) {
+    public ScheduledSurgery(Surgery surgery) {
         this.surgery = surgery;
+    }
+
+    public ScheduledSurgery(Surgery surgery, DateTime startingTimeSurgery, DateTime finishingTimeSurgery, OperatingRoom operatingRoom) {
+        this(surgery);
         this.startingTimeSurgery = startingTimeSurgery;
         this.finishingTimeSurgery = finishingTimeSurgery;
+        this.operatingRoom = operatingRoom;
     }
 
     public Long getScheduleSurgeryId() {
@@ -38,6 +55,7 @@ public class ScheduledSurgery {
         this.surgery = surgery;
     }
 
+    @PlanningVariable(valueRangeProviderRefs = {"roomRange"})
     public OperatingRoom getOperatingRoom() {
         return operatingRoom;
     }
@@ -46,11 +64,15 @@ public class ScheduledSurgery {
         this.operatingRoom = operatingRoom;
     }
 
+    @PlanningVariable(valueRangeProviderRefs = {"startingSurgeryRange"})
     public DateTime getStartingTimeSurgery() {
         return startingTimeSurgery;
     }
 
     public void setStartingTimeSurgery(DateTime startingTimeSurgery) {
+        setStartingTimeSurgery(true, startingTimeSurgery);
+    }
+    public void setStartingAssignedTimeSurgery(DateTime startingTimeSurgery) {
         this.startingTimeSurgery = startingTimeSurgery;
     }
 
@@ -63,10 +85,7 @@ public class ScheduledSurgery {
     }
 
     public void setStartingTimeSurgery(boolean hasFinishSurgery, DateTime startingTimeSurgery) {
-        /**
-         * TO DO - REVIEW
-         */
-        this.setStartingTimeSurgery(startingTimeSurgery);
+        this.startingTimeSurgery = startingTimeSurgery;
         if (hasFinishSurgery) {
             if(startingTimeSurgery == null) {
                 setFinishingTimeSurgery(null);
@@ -78,7 +97,10 @@ public class ScheduledSurgery {
         }
     }
 
-    public boolean isAvailableTime() {
+    public boolean availableTime() {
+        if (this.getOperatingRoom() == null) {
+            return false;
+        }
         DateTimeFormatter formatDate = DateTimeFormat.forPattern("dd-MM-yyyy HH:mm");
         OperatingRoom operatingRoom = this.getOperatingRoom();
         String openingRoom = operatingRoom.getOpeningTime();
@@ -118,7 +140,7 @@ public class ScheduledSurgery {
         return information.toString();
     }
 
-    public String getInformationScheduledSurgery() {
+    public String informationScheduledSurgery() {
         StringBuilder information = new StringBuilder();
         DateTimeFormatter formatDate = DateTimeFormat.forPattern("dd-MM-yyyy HH:mm");
         String startSurgery = this.getStartingTimeSurgery().toString(formatDate);
