@@ -3,10 +3,8 @@ package org.standrews.schedulingsurgeries.domain;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 public class OperatingRoom extends PanacheEntityBase {
@@ -15,16 +13,18 @@ public class OperatingRoom extends PanacheEntityBase {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long operatingRoomId;
     private String operatingRoomName;
-    private String openingTime;
-    private String closingTime;
+
+
+    private LocalDateTime startingTimeWeekly;
+    private LocalDateTime finishTimeWeekly ;
 
     public OperatingRoom(){
     }
 
-    public OperatingRoom(String operatingRoomName, String openingTime, String closingTime) {
+    public OperatingRoom(String operatingRoomName, LocalDateTime startingTimeWeekly, LocalDateTime finishTimeWeekly) {
         this.operatingRoomName = operatingRoomName;
-        this.openingTime = openingTime;
-        this.closingTime = closingTime;
+        this.startingTimeWeekly = startingTimeWeekly;
+        this.finishTimeWeekly = finishTimeWeekly;
     }
 
     public Long getOperatingRoomId() {
@@ -35,12 +35,12 @@ public class OperatingRoom extends PanacheEntityBase {
         return operatingRoomName;
     }
 
-    public String getOpeningTime() {
-        return openingTime;
+    public LocalDateTime getOpeningTime() {
+        return startingTimeWeekly;
     }
 
-    public String getClosingTime() {
-        return closingTime;
+    public LocalDateTime getClosingTime() {
+        return finishTimeWeekly;
     }
 
     @Override

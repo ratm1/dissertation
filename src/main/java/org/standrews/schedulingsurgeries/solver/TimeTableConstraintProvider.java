@@ -25,6 +25,7 @@ public class TimeTableConstraintProvider  implements ConstraintProvider {
                 .penalize("Conflict operating room", HardSoftScore.ONE_HARD);
     }
 
+
     private Constraint availableTimeOperatingTheater(ConstraintFactory constraintFactory) {
         return constraintFactory.from(ScheduledSurgery.class)
                 .filter((scheduledSurgery -> scheduledSurgery.availableTime() == false))

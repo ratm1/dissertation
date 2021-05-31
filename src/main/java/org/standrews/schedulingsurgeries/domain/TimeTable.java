@@ -1,6 +1,6 @@
 package org.standrews.schedulingsurgeries.domain;
 
-import org.joda.time.DateTime;
+
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
@@ -9,6 +9,7 @@ import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 import org.optaplanner.core.api.solver.SolverStatus;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class TimeTable {
 
     @ValueRangeProvider(id = "startingSurgeryRange")
     @ProblemFactCollectionProperty
-    private List<DateTime> startingTimeSurgeries;
+    private List<LocalDateTime> startingTimeSurgeries;
     @ValueRangeProvider(id = "roomRange")
     @ProblemFactCollectionProperty
     private List<OperatingRoom> operatingRooms;
@@ -39,19 +40,19 @@ public class TimeTable {
         this.scheduledSurgeries = scheduledSurgeries;
     }
 
-    public List<DateTime> getStartingTimeSurgeries() {
+    public List<LocalDateTime> getStartingTimeSurgeries() {
         return startingTimeSurgeries;
     }
 
-    public void setStartingTimeSurgeries(List<DateTime> startingTimeSurgeries) {
+    public void setStartingTimeSurgeries(List<LocalDateTime> startingTimeSurgeries) {
         this.startingTimeSurgeries = startingTimeSurgeries;
     }
 
 
     public void setStartingTimeSurgeries() {
         this.startingTimeSurgeries = new ArrayList<>();
-        DateTime startingTime = new DateTime(2021, 05, 25, 7, 30);
-        DateTime endTime = startingTime.plusHours(24);
+        LocalDateTime startingTime = LocalDateTime.of (2021, 06, 14, 8, 30);
+        LocalDateTime endTime = startingTime.plusHours(24);
         while (startingTime.isBefore(endTime)) {
             startingTimeSurgeries.add(startingTime);
             startingTime = startingTime.plusMinutes(30);
