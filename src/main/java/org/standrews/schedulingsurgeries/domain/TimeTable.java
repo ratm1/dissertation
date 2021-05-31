@@ -51,11 +51,11 @@ public class TimeTable {
 
     public void setStartingTimeSurgeries() {
         this.startingTimeSurgeries = new ArrayList<>();
-        LocalDateTime startingTime = LocalDateTime.of (2021, 06, 14, 8, 30);
-        LocalDateTime endTime = startingTime.plusHours(24);
-        while (startingTime.isBefore(endTime)) {
-            startingTimeSurgeries.add(startingTime);
-            startingTime = startingTime.plusMinutes(30);
+        LocalDateTime openingOperatingRoom = LocalDateTime.of(2021, 06, 14, 8, 30);
+        LocalDateTime closingOperationRoom = LocalDateTime.of(2021, 06, 18, 20, 00);
+        while (openingOperatingRoom .isBefore(closingOperationRoom)) {
+            startingTimeSurgeries.add(openingOperatingRoom );
+            openingOperatingRoom  = openingOperatingRoom .plusMinutes(30);
         }
     }
 

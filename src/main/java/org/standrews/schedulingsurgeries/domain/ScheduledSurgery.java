@@ -7,6 +7,8 @@ import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @PlanningEntity
 @Entity
@@ -103,7 +105,33 @@ public class ScheduledSurgery extends PanacheEntityBase {
         LocalDateTime closingRoomDateTime = operatingRoom.getClosingTime();
         LocalDateTime startingSurgery = this.getStartingTimeSurgery();
         LocalDateTime finishingSurgery = this.getFinishingTimeSurgery();
-        return containsInTheInterval(openingRoomDateTime, closingRoomDateTime, startingSurgery, finishingSurgery);
+        return containInOneOfTheIntervalsOfTheWeek(openingRoomDateTime, closingRoomDateTime, startingSurgery, finishingSurgery);
+    }
+
+    private boolean containInOneOfTheIntervalsOfTheWeek(LocalDateTime openingRoomDateTime, LocalDateTime closingRoomDateTime, LocalDateTime startingSurgery, LocalDateTime finishingSurgery) {
+        List<LocalDateTime> openingRoomWeekly = new ArrayList<>();
+        List<LocalDateTime> closingRoomWeekly = new ArrayList<>();
+        int numberOfDays = closingRoomDateTime.getDayOfMonth() - openingRoomDateTime.getDayOfMonth();
+        int hours = closingRoomDateTime.getHour() - openingRoomDateTime.getHour();
+        int minutes =  closingRoomDateTime.getMinute() - openingRoomDateTime.getMinute();
+        int totalMinutes = (hours * 60) + minutes;
+        openingRoomWeekly.add(openingRoomDateTime);
+        for (int openingDays = 1; openingDays <= numberOfDays; openingDays++) {
+            closingRoomWeekly.add(openingRoomDateTime.plusMinutes(totalMinutes));
+            openingRoomDateTime = openingRoomDateTime.plusDays(1);
+            openingRoomWeekly.add(openingRoomDateTime);
+        }
+        closingRoomWeekly.add(closingRoomDateTime);
+        return calculateSpecificInterval(openingRoomWeekly, closingRoomWeekly, startingSurgery, finishingSurgery);
+    }
+
+    private boolean calculateSpecificInterval(List<LocalDateTime> openingRoomWeekly,  List<LocalDateTime> closingRoomWeekly, LocalDateTime startingSurgery, LocalDateTime finishingSurgery) {
+        for (int counterDay = 0; counterDay < openingRoomWeekly.size(); counterDay++) {
+            if (containsInTheInterval(openingRoomWeekly.get(counterDay), closingRoomWeekly.get(counterDay), startingSurgery, finishingSurgery)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean containsInTheInterval(LocalDateTime openingRoomDateTime, LocalDateTime closingRoomDateTime, LocalDateTime startingSurgery,  LocalDateTime finishingSurgery) {
@@ -116,43 +144,11 @@ public class ScheduledSurgery extends PanacheEntityBase {
     }
 
 
-
-    /*
-    public boolean availableTime() {
-        if (this.getOperatingRoom() == null) {
-            return false;
-        }
-        DateTimeFormatter formatDate = DateTimeFormat.forPattern("dd-MM-yyyy HH:mm");
-        OperatingRoom operatingRoom = this.getOperatingRoom();
-        String openingRoom = operatingRoom.getOpeningTime();
-        String closingRoom = operatingRoom.getClosingTime();
-        DateTime openingRoomDateTime = formatDate.parseDateTime(openingRoom);
-        DateTime closingRoomDateTime = formatDate.parseDateTime(closingRoom);
-
-        DateTime openingRoomDateTime = operatingRoom.getOpeningTime();
-        DateTime closingRoomDateTime = getOperatingRoom().getClosingTime();
-
-        Interval intervalOperatingRoom = new Interval(openingRoomDateTime, closingRoomDateTime);
-        Interval intervalSurgery = new Interval(this.getStartingTimeSurgery(), this.getFinishingTimeSurgery());
-        return containsInTheInterval(intervalOperatingRoom, intervalSurgery);
-    }
-
-    private boolean containsInTheInterval(Interval intervalOperatingRoom, Interval intervalSurgery) {
-        if (intervalOperatingRoom.contains(intervalSurgery)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-     */
-
     @Override
     public String toString() {
         StringBuilder information = new StringBuilder();
-        /*
-        DateTimeFormatter formatDate = DateTimeFormat.forPattern("dd-MM-yyyy HH:mm");
-        String startingTimeSurgery = this.getStartingTimeSurgery() == null ? "null " : this.getStartingTimeSurgery().toString(formatDate);
-        String finishingTimeSurgery = this.getFinishingTimeSurgery() == null ? "null ": this.getFinishingTimeSurgery().toString(formatDate);
+        String startingTimeSurgery = this.getStartingTimeSurgery() == null ? "null " : this.getStartingTimeSurgery().toString();
+        String finishingTimeSurgery = this.getFinishingTimeSurgery() == null ? "null ": this.getFinishingTimeSurgery().toString();
         information.append("Elective surgery -");
         information.append(" Speciality: ");
         information.append(this.getSurgery().getSpeciality());
@@ -164,36 +160,7 @@ public class ScheduledSurgery extends PanacheEntityBase {
         information.append(startingTimeSurgery);
         information.append(" Finishing time: ");
         information.append(finishingTimeSurgery);
-         */
         return information.toString();
     }
 
-    public String informationScheduledSurgery() {
-        StringBuilder information = new StringBuilder();
-        /*
-        DateTimeFormatter formatDate = DateTimeFormat.forPattern("dd-MM-yyyy HH:mm");
-        String startSurgery = this.getStartingTimeSurgery().toString(formatDate);
-        String finishSurgery = this.getFinishingTimeSurgery().toString(formatDate);
-        information.append("-- Elective Surgery --");
-        information.append("\n");
-        information.append("Speciality: ");
-        information.append(this.getSurgery().getSpeciality());
-        information.append("\n");
-        information.append("Procedure: ");
-        information.append(this.getSurgery().getProcedureName());
-        information.append("\n");
-        information.append("Surgeon: ");
-        information.append(this.getSurgery().getSurgeon());
-        information.append("\n");
-        information.append("Operating room: ");
-        information.append(this.getOperatingRoom().getOperatingRoomName());
-        information.append("\n");
-        information.append("Starting time: ");
-        information.append(startSurgery);
-        information.append("\n");
-        information.append("Finishing time: ");
-        information.append(finishSurgery);
-         */
-        return information.toString();
-    }
 }
