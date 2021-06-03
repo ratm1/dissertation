@@ -89,7 +89,7 @@ public class ScheduledSurgery extends PanacheEntityBase {
             if(startingTimeSurgery == null) {
                 setFinishingTimeSurgery(null);
             } else {
-                int procedureDuration = this.getSurgery().getProcedureDuration();
+                int procedureDuration = this.getSurgery().getSurgeryDuration();
                 LocalDateTime finishingSurgery = startingTimeSurgery.plusMinutes(procedureDuration);
                 setFinishingTimeSurgery(finishingSurgery);
             }
@@ -143,7 +143,7 @@ public class ScheduledSurgery extends PanacheEntityBase {
         }
     }
 
-
+// TO DO: REVIEW
     @Override
     public String toString() {
         StringBuilder information = new StringBuilder();
@@ -151,9 +151,9 @@ public class ScheduledSurgery extends PanacheEntityBase {
         String finishingTimeSurgery = this.getFinishingTimeSurgery() == null ? "null ": this.getFinishingTimeSurgery().toString();
         information.append("Elective surgery -");
         information.append(" Speciality: ");
-        information.append(this.getSurgery().getSpeciality());
+        information.append(this.getSurgery().getSurgeon().getSpeciality().getName());
         information.append(" Procedure: ");
-        information.append(this.getSurgery().getProcedureName());
+        information.append(this.getSurgery().getProcedure().getName());
         information.append(" Surgeon: ");
         information.append(this.getSurgery().getSurgeon());
         information.append(" Starting time: ");

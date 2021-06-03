@@ -3,10 +3,7 @@ package org.standrews.schedulingsurgeries.domain;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Surgery extends PanacheEntityBase {
@@ -14,29 +11,34 @@ public class Surgery extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long surgeryId;
-    private String patient;
-    private String surgeon;
-    private String anesthesiaType;
-    private String anesthetist;
-    private String speciality;
-    private String surgeryType;
-    private String insuranceName;
-    private String procedureName;
-    private Integer procedureDuration;
+    @ManyToOne
+    private Patient patient;
+    @ManyToOne
+    private Surgeon surgeon;
+    @ManyToOne
+    private AnesthesiaType anesthesiaType;
+    @ManyToOne
+    private Anesthetist anesthetist;
+    @ManyToOne
+    private SurgeryType surgeryType;
+    @ManyToOne
+    private Insurance insurance;
+    @ManyToOne
+    private Procedure procedure;
+    private Integer surgeryDuration;
 
     public Surgery() {
     }
 
-    public Surgery(String patient, String surgeon, String anesthesiaType, String anesthetist, String speciality, String surgeryType, String insuranceName, String procedureName, Integer procedureDuration) {
+    public Surgery(Patient patient, Surgeon surgeon, AnesthesiaType anesthesiaType, Anesthetist anesthetist, SurgeryType surgeryType, Insurance insurance, Procedure procedure, Integer surgeryDuration) {
         this.patient = patient;
         this.surgeon = surgeon;
         this.anesthesiaType = anesthesiaType;
         this.anesthetist = anesthetist;
-        this.speciality = speciality;
         this.surgeryType = surgeryType;
-        this.insuranceName = insuranceName;
-        this.procedureName = procedureName;
-        this.procedureDuration = procedureDuration;
+        this.insurance= insurance;
+        this.procedure = procedure;
+        this.surgeryDuration = surgeryDuration;
     }
 
     public Long getSurgeryId() {
@@ -47,80 +49,72 @@ public class Surgery extends PanacheEntityBase {
         this.surgeryId = surgeryId;
     }
 
-    public String getPatient() {
+    public Patient getPatient() {
         return patient;
     }
 
-    public void setPatient(String patient) {
+    public void setPatient(Patient patient) {
         this.patient = patient;
     }
 
-    public String getSurgeon() {
+    public Surgeon getSurgeon() {
         return surgeon;
     }
 
-    public void setSurgeon(String surgeon) {
+    public void setSurgeon(Surgeon surgeon) {
         this.surgeon = surgeon;
     }
 
-    public String getAnesthesiaType() {
+    public AnesthesiaType getAnesthesiaType() {
         return anesthesiaType;
     }
 
-    public void setAnesthesiaType(String anesthesiaType) {
+    public void setAnesthesiaType(AnesthesiaType anesthesiaType) {
         this.anesthesiaType = anesthesiaType;
     }
 
-    public String getAnesthetist() {
+    public Anesthetist getAnesthetist() {
         return anesthetist;
     }
 
-    public void setAnesthetist(String anesthetist) {
+    public void setAnesthetist(Anesthetist anesthetist) {
         this.anesthetist = anesthetist;
     }
 
-    public String getSpeciality() {
-        return speciality;
-    }
-
-    public void setSpeciality(String speciality) {
-        this.speciality = speciality;
-    }
-
-    public String getSurgeryType() {
+    public SurgeryType getSurgeryType() {
         return surgeryType;
     }
 
-    public void setSurgeryType(String surgeryType) {
+    public void setSurgeryType(SurgeryType surgeryType) {
         this.surgeryType = surgeryType;
     }
 
-    public String getInsuranceName() {
-        return insuranceName;
+    public Procedure getProcedure() {
+        return procedure;
     }
 
-    public void setInsuranceName(String insuranceName) {
-        this.insuranceName = insuranceName;
+    public void setProcedure(Procedure procedure) {
+        this.procedure = procedure;
     }
 
-    public String getProcedureName() {
-        return procedureName;
+    public Insurance getInsurance() {
+        return insurance;
     }
 
-    public void setProcedureName(String procedureName) {
-        this.procedureName = procedureName;
+    public void setInsurance(Insurance insurance) {
+        this.insurance = insurance;
     }
 
-    public Integer getProcedureDuration() {
-        return procedureDuration;
+    public Integer getSurgeryDuration() {
+        return surgeryDuration;
     }
 
-    public void setProcedureDuration(Integer procedureDuration) {
-        this.procedureDuration = procedureDuration;
+    public void setSurgeryDuration(Integer surgeryDuration) {
+        this.surgeryDuration = surgeryDuration;
     }
 
     @Override
     public String toString() {
-        return "Surgery: " +  this.getSurgeryId() +" Procedure: " + this.getProcedureName();
+        return "Surgery: " +  this.getSurgeryId() +" Procedure: " + this.getProcedure().getName();
     }
 }

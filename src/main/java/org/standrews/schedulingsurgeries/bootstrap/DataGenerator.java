@@ -13,8 +13,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@ApplicationScoped
+//@ApplicationScoped
 public class DataGenerator {
+    /*
     @Transactional
     public void generateData(@Observes StartupEvent startupEvent) {
         LocalDateTime openingOperatingRoom = LocalDateTime.of(2021, 06, 14, 8, 30);
@@ -133,5 +134,5 @@ public class DataGenerator {
         }
         return scheduledSurgeries;
     }
-
+*/
 }
