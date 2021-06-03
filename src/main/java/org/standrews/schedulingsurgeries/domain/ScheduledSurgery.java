@@ -31,6 +31,9 @@ public class ScheduledSurgery extends PanacheEntityBase {
         this.surgery = surgery;
     }
 
+    /**
+     * TO DO REVIEW THIS CONSTRUCTOR
+     */
     public ScheduledSurgery(Surgery surgery, LocalDateTime startingTimeSurgery, LocalDateTime finishingTimeSurgery, OperatingRoom operatingRoom) {
         this(surgery);
         this.startingTimeSurgery = startingTimeSurgery;
@@ -42,7 +45,7 @@ public class ScheduledSurgery extends PanacheEntityBase {
         return scheduleSurgeryId;
     }
 
-    public void setScheduleSurgeryId(Long scheduleSurgeryId) {
+    public void setScheduleSurgeryId(long scheduleSurgeryId) {
         this.scheduleSurgeryId = scheduleSurgeryId;
     }
 

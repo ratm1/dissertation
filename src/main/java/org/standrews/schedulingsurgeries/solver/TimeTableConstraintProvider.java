@@ -16,7 +16,7 @@ public class TimeTableConstraintProvider  implements ConstraintProvider {
         };
     }
 
-    private Constraint operatingRoomConflict(ConstraintFactory constraintFactory) {
+    public Constraint operatingRoomConflict(ConstraintFactory constraintFactory) {
         return constraintFactory.from(ScheduledSurgery.class)
                 .join(ScheduledSurgery.class,
                         Joiners.equal(ScheduledSurgery::getOperatingRoom),
@@ -26,7 +26,7 @@ public class TimeTableConstraintProvider  implements ConstraintProvider {
     }
 
 
-    private Constraint availableTimeOperatingTheater(ConstraintFactory constraintFactory) {
+    public Constraint availableTimeOperatingTheater(ConstraintFactory constraintFactory) {
         return constraintFactory.from(ScheduledSurgery.class)
                 .filter((scheduledSurgery -> scheduledSurgery.availableTime() == false))
                 .penalize("Conflict unavailable time", HardSoftScore.ONE_HARD);

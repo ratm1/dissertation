@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
-public class DataGeneratorNew {
+public class DataGeneratorTwo {
     @Transactional
     public void generateData(@Observes StartupEvent startupEvent) {
         /**
