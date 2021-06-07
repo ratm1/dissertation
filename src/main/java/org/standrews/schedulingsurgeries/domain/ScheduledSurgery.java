@@ -32,7 +32,7 @@ public class ScheduledSurgery extends PanacheEntityBase {
     }
 
     /**
-     * TO DO REVIEW THIS CONSTRUCTOR
+     * TO DO REVIEW THIS CONSTRUCTOR - I THINK IS DOING NOTHING (FIX THIS)
      */
     public ScheduledSurgery(Surgery surgery, LocalDateTime startingTimeSurgery, LocalDateTime finishingTimeSurgery, OperatingRoom operatingRoom) {
         this(surgery);
