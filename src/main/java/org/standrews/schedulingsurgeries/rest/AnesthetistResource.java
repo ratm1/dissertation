@@ -19,6 +19,9 @@ public class AnesthetistResource {
     @Path("{anesthetistId}/{firstName}/{lastName}")
     public Response add(@PathParam("anesthetistId") Long anesthetistId, @PathParam("firstName") String firstName,
                         @PathParam("lastName") String lastName) {
+        if ( Anesthetist .findById(anesthetistId) != null) {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+        }
         Anesthetist anesthetist = new Anesthetist(anesthetistId, firstName, lastName);
         Anesthetist.persist(anesthetist);
         return Response.accepted(anesthetist).build();

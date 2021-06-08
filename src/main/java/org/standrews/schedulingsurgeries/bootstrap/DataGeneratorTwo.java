@@ -36,10 +36,9 @@ public class DataGeneratorTwo {
          */
         List<SurgeryType> surgeryTypeList = new ArrayList<>();
         surgeryTypeList.add(new SurgeryType("E", "Elective"));
-        surgeryTypeList.add(new SurgeryType( "A", "Ambulatoria"));
         Surgery.persist(surgeryTypeList);
         /**
-         * Anesthetist (DONE)
+         * Anesthetist
          */
         List<Anesthetist> anesthetists = new ArrayList<>();
         anesthetists.add(new Anesthetist(234, "NA","NA"));
@@ -53,7 +52,7 @@ public class DataGeneratorTwo {
         anesthesiaTypes.add(new AnesthesiaType(16));
         AnesthesiaType.persist(anesthesiaTypes);
         /**
-         * Insurances (DONE)
+         * Insurances
          */
         List<Insurance> insurances = new ArrayList<>();
         insurances.add(new Insurance("Particular"));
@@ -61,7 +60,7 @@ public class DataGeneratorTwo {
         insurances.add(new Insurance("Unimed"));
         Insurance.persist(insurances);
         /**
-         * Specialities (DONE)
+         * Specialities
          */
         List<Speciality> specialities = new ArrayList<>();
         specialities.add(new Speciality("Obstetrica"));
@@ -69,7 +68,7 @@ public class DataGeneratorTwo {
         specialities.add(new Speciality("Ortopedia/Traumatologia"));
         Speciality.persist(specialities);
         /**
-         * Procedure (DONE)
+         * Procedure
          */
         List<Procedure> procedures = new ArrayList<>();
         procedures.add(new Procedure(234, specialities.get(0), "Cesariana (feto unico)"));
@@ -77,7 +76,7 @@ public class DataGeneratorTwo {
         procedures.add(new Procedure(891, specialities.get(2), "Descolamento Epifisario do Umero - Tratamento Cirurgico"));
         Procedure.persist(procedures);
         /**
-         * Surgeons (DONE)
+         * Surgeons
          */
         List<Surgeon> surgeons = new ArrayList<>();
         surgeons.add(new Surgeon(198,"NA","NA", specialities.get(0)));
@@ -85,7 +84,7 @@ public class DataGeneratorTwo {
         surgeons.add(new Surgeon(196, "NA", "NA", specialities.get(2)));
         Surgeon.persist(surgeons);
         /**
-         * Rooms (DONE)
+         * Rooms
          */
         /*
         List <OperatingRoom> operatingRooms = new ArrayList<>();

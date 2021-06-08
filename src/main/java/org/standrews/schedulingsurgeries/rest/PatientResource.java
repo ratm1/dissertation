@@ -18,6 +18,9 @@ public class PatientResource {
     @POST
     @Path("{patientId}/{firstName}/{lastName}")
     public Response add(@PathParam("patientId") Long patientId, @PathParam("firstName") String firstName, @PathParam("lastName") String lastName) {
+        if (Patient.findById(patientId) != null) {
+            return Response.status(Response.Status.NOT_ACCEPTABLE).build();
+        }
         Patient patient = new Patient(patientId, firstName, lastName);
         Patient.persist(patient);
         return Response.accepted(patient).build();
@@ -37,6 +40,16 @@ public class PatientResource {
     @GET
     public List<Patient> getPatients(){
         return Patient.listAll();
+    }
+
+    @GET
+    @Path("{patientId}")
+    public Response isPatientCreated(@PathParam("patientId") Long patientId){
+        Patient patient = Patient.findById(patientId);
+        if (patient == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.status(Response.Status.FOUND).build();
     }
 
 }
