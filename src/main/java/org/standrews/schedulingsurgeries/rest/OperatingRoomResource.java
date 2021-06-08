@@ -18,17 +18,16 @@ public class OperatingRoomResource {
 
     private static final Long SINGLETON_TIME_TABLE_ID = 1L;
 
+
     @POST
-    @Path("{roomName}/{openingTime}/{closingTime}")
-    public Response add(@PathParam("roomName") String roomName, @PathParam("openingTime") String openingTime,
-                        @PathParam("closingTime") String closingTime) {
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime openingOperatingRoom = LocalDateTime.parse(openingTime, format);
-        LocalDateTime closingOperationRoom = LocalDateTime.parse(closingTime, format);
-        OperatingRoom operatingRoom = new OperatingRoom(roomName, openingOperatingRoom, closingOperationRoom);
+    @Path("{roomName}/{timeId}")
+    public Response add(@PathParam("roomName") String roomName, @PathParam("timeId") Long timeId) {
+        Time time = Time.findById(timeId);
+        OperatingRoom operatingRoom = new OperatingRoom(roomName, time);
         OperatingRoom.persist(operatingRoom);
         return Response.accepted(operatingRoom).build();
     }
+
 
     @DELETE
     @Path("{roomId}")

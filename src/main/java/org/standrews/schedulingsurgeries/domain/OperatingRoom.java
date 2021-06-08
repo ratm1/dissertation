@@ -12,6 +12,8 @@ public class OperatingRoom extends PanacheEntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long operatingRoomId;
+    @OneToOne
+    private Time time;
     private String operatingRoomName;
 
 
@@ -21,11 +23,19 @@ public class OperatingRoom extends PanacheEntityBase {
     public OperatingRoom(){
     }
 
+    public OperatingRoom(String operatingRoomName, Time time) {
+        this.operatingRoomName = operatingRoomName;
+        this.startingTimeWeekly = time.getStartingTimeWeekly();
+        this.finishTimeWeekly = time.getFinishTimeWeekly();
+    }
+
+    /*
     public OperatingRoom(String operatingRoomName, LocalDateTime startingTimeWeekly, LocalDateTime finishTimeWeekly) {
         this.operatingRoomName = operatingRoomName;
         this.startingTimeWeekly = startingTimeWeekly;
         this.finishTimeWeekly = finishTimeWeekly;
     }
+     */
 
     public Long getOperatingRoomId() {
         return operatingRoomId;
