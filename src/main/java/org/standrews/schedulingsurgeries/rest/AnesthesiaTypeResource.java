@@ -14,8 +14,11 @@ import java.util.List;
 @Transactional
 public class AnesthesiaTypeResource {
     private static final Long SINGLETON_TIME_TABLE_ID = 1L;
+
     @POST
-    public Response add(AnesthesiaType anesthesiaType) {
+    @Path("{code}")
+    public Response add(@PathParam("code") Integer code) {
+        AnesthesiaType anesthesiaType = new AnesthesiaType(code);
         AnesthesiaType.persist(anesthesiaType);
         return Response.accepted(anesthesiaType).build();
     }
@@ -33,19 +36,6 @@ public class AnesthesiaTypeResource {
 
     @GET
     public List<AnesthesiaType> getAnesthesiaTypes(){
-        TimeTable solution = findById(SINGLETON_TIME_TABLE_ID);
-        return solution.findAnesthesiaTypes();
-    }
-
-    @Transactional
-    protected TimeTable findById(Long id) {
-        return new TimeTable(
-                OperatingRoom.listAll(),
-                Surgery.listAll(),
-                Patient.listAll(),
-                SurgeryType.listAll(),
-                Anesthetist.listAll(),
-                AnesthesiaType.listAll(),
-                ScheduledSurgery.listAll());
+        return AnesthesiaType.listAll();
     }
 }

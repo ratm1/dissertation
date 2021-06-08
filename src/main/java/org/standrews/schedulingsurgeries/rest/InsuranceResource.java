@@ -2,6 +2,7 @@ package org.standrews.schedulingsurgeries.rest;
 
 import org.standrews.schedulingsurgeries.domain.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -14,8 +15,11 @@ import java.util.List;
 @Transactional
 public class InsuranceResource {
     private static final Long SINGLETON_TIME_TABLE_ID = 1L;
+
     @POST
-    public Response add(Insurance insurance) {
+    @Path("{name}")
+    public Response add(@PathParam("name") String name) {
+        Insurance insurance = new Insurance(name);
         Insurance.persist(insurance);
         return Response.accepted(insurance).build();
     }

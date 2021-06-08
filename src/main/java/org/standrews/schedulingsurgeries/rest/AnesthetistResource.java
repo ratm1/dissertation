@@ -14,8 +14,12 @@ import java.util.List;
 @Transactional
 public class AnesthetistResource {
     private static final Long SINGLETON_TIME_TABLE_ID = 1L;
+
     @POST
-    public Response add(Anesthetist anesthetist) {
+    @Path("{anesthetistId}/{firstName}/{lastName}")
+    public Response add(@PathParam("anesthetistId") Long anesthetistId, @PathParam("firstName") String firstName,
+                        @PathParam("lastName") String lastName) {
+        Anesthetist anesthetist = new Anesthetist(anesthetistId, firstName, lastName);
         Anesthetist.persist(anesthetist);
         return Response.accepted(anesthetist).build();
     }
@@ -33,19 +37,7 @@ public class AnesthetistResource {
 
     @GET
     public List<Anesthetist> getAnesthetists(){
-        TimeTable solution = findById(SINGLETON_TIME_TABLE_ID);
-        return solution.findAnesthetists();
+        return Anesthetist.listAll();
     }
 
-    @Transactional
-    protected TimeTable findById(Long id) {
-        return new TimeTable(
-                OperatingRoom.listAll(),
-                Surgery.listAll(),
-                Patient.listAll(),
-                SurgeryType.listAll(),
-                Anesthetist.listAll(),
-                AnesthesiaType.listAll(),
-                ScheduledSurgery.listAll());
-    }
 }

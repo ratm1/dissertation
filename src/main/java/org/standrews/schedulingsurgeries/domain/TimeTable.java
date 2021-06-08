@@ -24,14 +24,6 @@ public class TimeTable {
     private List<OperatingRoom> operatingRooms;
     @ProblemFactCollectionProperty
     private List<Surgery> surgeries;
-    @ProblemFactCollectionProperty
-    private List<Patient> patients;
-    @ProblemFactCollectionProperty
-    private List<SurgeryType> surgeryTypes;
-    @ProblemFactCollectionProperty
-    private List<Anesthetist> anesthetists;
-    @ProblemFactCollectionProperty
-    private List<AnesthesiaType> anesthesiaTypes;
     @PlanningEntityCollectionProperty
     private List<ScheduledSurgery> scheduledSurgeries;
     @PlanningScore
@@ -41,47 +33,19 @@ public class TimeTable {
     public TimeTable(){
     }
 
-    public TimeTable(List<OperatingRoom> operatingRooms, List<Surgery> surgeries, List<Patient> patients,
-                     List<SurgeryType> surgeryTypes, List<Anesthetist> anesthetists, List<AnesthesiaType> anesthesiaTypes,
-                     List<ScheduledSurgery> scheduledSurgeries) {
-        setStartingTimeSurgeries();
+    public TimeTable(List<OperatingRoom> operatingRooms, List<Surgery> surgeries, List<ScheduledSurgery> scheduledSurgeries) {
         this.operatingRooms = operatingRooms;
         this.surgeries = surgeries;
-        this.patients = patients;
-        this.surgeryTypes = surgeryTypes;
-        this.anesthetists = anesthetists;
-        this.anesthesiaTypes =  anesthesiaTypes;
         this.scheduledSurgeries = scheduledSurgeries;
+        setStartingTimeSurgeries(operatingRooms.get(0).getOpeningTime(), getOperatingRooms().get(0).getClosingTime());
     }
 
     public List<LocalDateTime> getStartingTimeSurgeries() {
         return startingTimeSurgeries;
     }
 
-    public void setStartingTimeSurgeries(List<LocalDateTime> startingTimeSurgeries) {
-        this.startingTimeSurgeries = startingTimeSurgeries;
-    }
-
-    public List<AnesthesiaType> findAnesthesiaTypes() {
-        return anesthesiaTypes;
-    }
-
-    public List<SurgeryType> findSurgeryTypes() {
-        return surgeryTypes;
-    }
-
-    public List<Anesthetist> findAnesthetists() {
-        return anesthetists;
-    }
-
-    public List<Patient> findThePatients() {
-        return patients;
-    }
-
-    public void setStartingTimeSurgeries() {
+    public void setStartingTimeSurgeries(LocalDateTime openingOperatingRoom, LocalDateTime closingOperationRoom ) {
         this.startingTimeSurgeries = new ArrayList<>();
-        LocalDateTime openingOperatingRoom = LocalDateTime.of(2021, 06, 14, 8, 30);
-        LocalDateTime closingOperationRoom = LocalDateTime.of(2021, 06, 18, 20, 00);
         while (openingOperatingRoom .isBefore(closingOperationRoom)) {
             startingTimeSurgeries.add(openingOperatingRoom );
             openingOperatingRoom  = openingOperatingRoom .plusMinutes(30);
@@ -124,16 +88,4 @@ public class TimeTable {
         this.solverStatus = solverStatus;
     }
 
-    /*
-    public String getAllScheduledSurgeries() {
-        StringBuilder scheduledSurgeriesInformation = new StringBuilder();
-        List<ScheduledSurgery> scheduledSurgeries = this.getScheduledSurgeries();
-        for (ScheduledSurgery scheduledSurgery: scheduledSurgeries) {
-            scheduledSurgeriesInformation.append(scheduledSurgery.getInformationScheduledSurgery());
-            scheduledSurgeriesInformation.append("\n");
-        }
-        return scheduledSurgeriesInformation.toString();
-    }
-
-     */
 }

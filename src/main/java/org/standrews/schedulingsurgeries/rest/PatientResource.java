@@ -14,8 +14,11 @@ import java.util.List;
 @Transactional
 public class PatientResource {
     private static final Long SINGLETON_TIME_TABLE_ID = 1L;
+
     @POST
-    public Response add(Patient patient) {
+    @Path("{patientId}/{firstName}/{lastName}")
+    public Response add(@PathParam("patientId") Long patientId, @PathParam("firstName") String firstName, @PathParam("lastName") String lastName) {
+        Patient patient = new Patient(patientId, firstName, lastName);
         Patient.persist(patient);
         return Response.accepted(patient).build();
     }
@@ -33,19 +36,7 @@ public class PatientResource {
 
     @GET
     public List<Patient> getPatients(){
-        TimeTable solution = findById(SINGLETON_TIME_TABLE_ID);
-        return solution.findThePatients();
+        return Patient.listAll();
     }
 
-    @Transactional
-    protected TimeTable findById(Long id) {
-        return new TimeTable(
-                OperatingRoom.listAll(),
-                Surgery.listAll(),
-                Patient.listAll(),
-                SurgeryType.listAll(),
-                Anesthetist.listAll(),
-                AnesthesiaType.listAll(),
-                ScheduledSurgery.listAll());
-    }
 }

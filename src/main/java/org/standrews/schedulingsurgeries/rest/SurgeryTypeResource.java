@@ -15,7 +15,9 @@ import java.util.List;
 public class SurgeryTypeResource {
     private static final Long SINGLETON_TIME_TABLE_ID = 1L;
     @POST
-    public Response add(SurgeryType surgeryType) {
+    @Path("{code}/{name}")
+    public Response add(@PathParam("code") String code, @PathParam("name") String name) {
+        SurgeryType surgeryType = new SurgeryType(code, name);
         SurgeryType.persist(surgeryType);
         return Response.accepted(surgeryType).build();
     }
@@ -33,19 +35,6 @@ public class SurgeryTypeResource {
 
     @GET
     public List<SurgeryType> getSurgeryTypes(){
-        TimeTable solution = findById(SINGLETON_TIME_TABLE_ID);
-        return solution.findSurgeryTypes();
-    }
-
-    @Transactional
-    protected TimeTable findById(Long id) {
-        return new TimeTable(
-                OperatingRoom.listAll(),
-                Surgery.listAll(),
-                Patient.listAll(),
-                SurgeryType.listAll(),
-                Anesthetist.listAll(),
-                AnesthesiaType.listAll(),
-                ScheduledSurgery.listAll());
+        return SurgeryType.listAll();
     }
 }

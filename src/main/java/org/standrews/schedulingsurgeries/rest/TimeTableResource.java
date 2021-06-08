@@ -1,7 +1,5 @@
 package org.standrews.schedulingsurgeries.rest;
 
-
-import org.joda.time.DateTime;
 import org.optaplanner.core.api.score.ScoreManager;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 import org.optaplanner.core.api.solver.SolverJob;
@@ -13,6 +11,10 @@ import javax.inject.Inject;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.sql.Time;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.concurrent.ExecutionException;
 
@@ -22,17 +24,25 @@ import java.util.concurrent.ExecutionException;
 public class TimeTableResource {
 
     private static final Long SINGLETON_TIME_TABLE_ID = 1L;
-
     @Inject
     SolverManager<TimeTable, Long> solverManager;
-
     @Inject
     ScoreManager<TimeTable, HardSoftScore> scoreManager;
-
     SolverJob<TimeTable, Long> solverJob;
 
+    /*
+    @POST
+    @Path("{openingTime}/{closingTime}")
+    public Response add(@PathParam("openingTime") String openingTime, @PathParam("closingTime") String closingTime) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime startingTimeFormat = LocalDateTime.parse(openingTime, format);
+        LocalDateTime closingTimeFormat = LocalDateTime.parse(closingTime, format);
+        TimeTable timeTable = new TimeTable(OperatingRoom.listAll(), Surgery.listAll(), ScheduledSurgery.listAll(), startingTimeFormat, closingTimeFormat);
+        return Response.accepted(timeTable).build();
+    }
+     */
     @GET
-    public TimeTable getTimeTable(){
+    public TimeTable getTimeTable() throws ExecutionException, InterruptedException {
         SolverStatus solverStatus = getSolverStatus();
         TimeTable solution = findById(SINGLETON_TIME_TABLE_ID);
         scoreManager.updateScore(solution);
@@ -56,10 +66,6 @@ public class TimeTableResource {
         return new TimeTable(
                 OperatingRoom.listAll(),
                 Surgery.listAll(),
-                Patient.listAll(),
-                SurgeryType.listAll(),
-                Anesthetist.listAll(),
-                AnesthesiaType.listAll(),
                 ScheduledSurgery.listAll());
     }
 
