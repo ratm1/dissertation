@@ -7,10 +7,7 @@ import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
 import org.optaplanner.core.api.solver.SolverJob;
 import org.optaplanner.core.api.solver.SolverManager;
 import org.optaplanner.core.api.solver.SolverStatus;
-import org.standrews.schedulingsurgeries.domain.OperatingRoom;
-import org.standrews.schedulingsurgeries.domain.ScheduledSurgery;
-import org.standrews.schedulingsurgeries.domain.Surgery;
-import org.standrews.schedulingsurgeries.domain.TimeTable;
+import org.standrews.schedulingsurgeries.domain.*;
 
 import javax.inject.Inject;
 import javax.transaction.Transactional;
@@ -59,6 +56,10 @@ public class TimeTableResource {
         return new TimeTable(
                 OperatingRoom.listAll(),
                 Surgery.listAll(),
+                Patient.listAll(),
+                SurgeryType.listAll(),
+                Anesthetist.listAll(),
+                AnesthesiaType.listAll(),
                 ScheduledSurgery.listAll());
     }
 

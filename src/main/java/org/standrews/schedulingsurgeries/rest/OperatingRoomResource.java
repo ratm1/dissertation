@@ -1,14 +1,13 @@
 package org.standrews.schedulingsurgeries.rest;
 
-import org.standrews.schedulingsurgeries.domain.OperatingRoom;
-import org.standrews.schedulingsurgeries.domain.ScheduledSurgery;
-import org.standrews.schedulingsurgeries.domain.Surgery;
-import org.standrews.schedulingsurgeries.domain.TimeTable;
+import org.standrews.schedulingsurgeries.domain.*;
 
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Path("/rooms")
@@ -16,9 +15,17 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class OperatingRoomResource {
+
     private static final Long SINGLETON_TIME_TABLE_ID = 1L;
+
     @POST
-    public Response add(OperatingRoom operatingRoom) {
+    @Path("{roomName}/{openingTime}/{closingTime}")
+    public Response add(@PathParam("roomName") String roomName, @PathParam("openingTime") String openingTime,
+                        @PathParam("closingTime") String closingTime) {
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime openingOperatingRoom = LocalDateTime.parse(openingTime, format);
+        LocalDateTime closingOperationRoom = LocalDateTime.parse(closingTime, format);
+        OperatingRoom operatingRoom = new OperatingRoom(roomName, openingOperatingRoom, closingOperationRoom);
         OperatingRoom.persist(operatingRoom);
         return Response.accepted(operatingRoom).build();
     }
@@ -36,15 +43,6 @@ public class OperatingRoomResource {
 
     @GET
     public List<OperatingRoom> getOperatingRooms(){
-        TimeTable solution = findById(SINGLETON_TIME_TABLE_ID);
-        return solution.getOperatingRooms();
-    }
-
-    @Transactional
-    protected TimeTable findById(Long id) {
-        return new TimeTable(
-                OperatingRoom.listAll(),
-                Surgery.listAll(),
-                ScheduledSurgery.listAll());
+        return OperatingRoom.listAll();
     }
 }

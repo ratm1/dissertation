@@ -23,8 +23,8 @@ public class TimeTableConstraintProviderTest {
         patients.add(new Patient(22,"NA","NA"));
 
         List<SurgeryType> surgeryTypeList = new ArrayList<>();
-        surgeryTypeList.add(new SurgeryType(123, "E", "Elective"));
-        surgeryTypeList.add(new SurgeryType(234, "A", "Ambulatoria"));
+        surgeryTypeList.add(new SurgeryType("E", "Elective"));
+        surgeryTypeList.add(new SurgeryType( "A", "Ambulatoria"));
 
         List<Speciality> specialities = new ArrayList<>();
         specialities.add(new Speciality("Obstetrica"));

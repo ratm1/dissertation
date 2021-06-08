@@ -24,6 +24,14 @@ public class TimeTable {
     private List<OperatingRoom> operatingRooms;
     @ProblemFactCollectionProperty
     private List<Surgery> surgeries;
+    @ProblemFactCollectionProperty
+    private List<Patient> patients;
+    @ProblemFactCollectionProperty
+    private List<SurgeryType> surgeryTypes;
+    @ProblemFactCollectionProperty
+    private List<Anesthetist> anesthetists;
+    @ProblemFactCollectionProperty
+    private List<AnesthesiaType> anesthesiaTypes;
     @PlanningEntityCollectionProperty
     private List<ScheduledSurgery> scheduledSurgeries;
     @PlanningScore
@@ -33,10 +41,16 @@ public class TimeTable {
     public TimeTable(){
     }
 
-    public TimeTable(List<OperatingRoom> operatingRooms, List<Surgery> surgeries, List<ScheduledSurgery> scheduledSurgeries) {
+    public TimeTable(List<OperatingRoom> operatingRooms, List<Surgery> surgeries, List<Patient> patients,
+                     List<SurgeryType> surgeryTypes, List<Anesthetist> anesthetists, List<AnesthesiaType> anesthesiaTypes,
+                     List<ScheduledSurgery> scheduledSurgeries) {
         setStartingTimeSurgeries();
         this.operatingRooms = operatingRooms;
         this.surgeries = surgeries;
+        this.patients = patients;
+        this.surgeryTypes = surgeryTypes;
+        this.anesthetists = anesthetists;
+        this.anesthesiaTypes =  anesthesiaTypes;
         this.scheduledSurgeries = scheduledSurgeries;
     }
 
@@ -48,6 +62,21 @@ public class TimeTable {
         this.startingTimeSurgeries = startingTimeSurgeries;
     }
 
+    public List<AnesthesiaType> findAnesthesiaTypes() {
+        return anesthesiaTypes;
+    }
+
+    public List<SurgeryType> findSurgeryTypes() {
+        return surgeryTypes;
+    }
+
+    public List<Anesthetist> findAnesthetists() {
+        return anesthetists;
+    }
+
+    public List<Patient> findThePatients() {
+        return patients;
+    }
 
     public void setStartingTimeSurgeries() {
         this.startingTimeSurgeries = new ArrayList<>();

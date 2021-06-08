@@ -30,7 +30,8 @@ public class Surgery extends PanacheEntityBase {
     public Surgery() {
     }
 
-    public Surgery(Patient patient, Surgeon surgeon, AnesthesiaType anesthesiaType, Anesthetist anesthetist, SurgeryType surgeryType, Insurance insurance, Procedure procedure, Integer surgeryDuration) {
+    public Surgery(Patient patient, Surgeon surgeon, AnesthesiaType anesthesiaType, Anesthetist anesthetist,
+                   SurgeryType surgeryType, Insurance insurance, Procedure procedure, Integer surgeryDuration) {
         this.patient = patient;
         this.surgeon = surgeon;
         this.anesthesiaType = anesthesiaType;
