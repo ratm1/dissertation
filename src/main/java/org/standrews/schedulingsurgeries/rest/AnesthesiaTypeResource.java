@@ -38,4 +38,18 @@ public class AnesthesiaTypeResource {
     public List<AnesthesiaType> getAnesthesiaTypes(){
         return AnesthesiaType.listAll();
     }
+
+    @GET
+    @Path("{code}")
+    public Long getAnesthesiaTypeId(@PathParam("code") Integer code){
+        List<AnesthesiaType> anesthesiaTypes = AnesthesiaType.listAll();
+        for (AnesthesiaType anesthesiaType: anesthesiaTypes) {
+            if(anesthesiaType.getCode() == code){
+                return anesthesiaType.getAnesthesiaId();
+            }
+        }
+        return -1L;
+    }
+
+
 }
