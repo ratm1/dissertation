@@ -40,7 +40,7 @@ public class TimeTable {
         setStartingTimeSurgeries(operatingRooms.get(0).getOpeningTime(), getOperatingRooms().get(0).getClosingTime());
     }
 
-    public List<LocalDateTime> getStartingTimeSurgeries() {
+    public List<LocalDateTime> findStartingTimeSurgeries() {
         return startingTimeSurgeries;
     }
 

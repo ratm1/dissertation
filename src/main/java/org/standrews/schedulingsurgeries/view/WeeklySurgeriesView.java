@@ -22,6 +22,7 @@ public class WeeklySurgeriesView extends JComponent {
     private LocalDate closingDateOR;
     private LocalTime openingTimeOR;
     private LocalTime closingTimeOR;
+    private RequestHandler requestHandler;
     private static final int HEIGHT_DAYS = 50;
     private static final int COLUMN_TIME_WIDTH = 60;
     private double scaleSchedule;
@@ -34,6 +35,7 @@ public class WeeklySurgeriesView extends JComponent {
         closingDateOR = LocalDate.of(FINAL_WEEK.getYear(), FINAL_WEEK.getMonth(), FINAL_WEEK.getDayOfMonth());
         openingTimeOR = LocalTime.of(START_WEEK.getHour(), START_WEEK.getMinute());
         closingTimeOR = LocalTime.of(FINAL_WEEK.getHour(), FINAL_WEEK.getMinute());
+        requestHandler = new RequestHandler();
     }
 
     @Override

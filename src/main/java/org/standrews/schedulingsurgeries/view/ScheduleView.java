@@ -1,11 +1,20 @@
 package org.standrews.schedulingsurgeries.view;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class ScheduleView implements ActionListener {
     /**
@@ -30,13 +39,17 @@ public class ScheduleView implements ActionListener {
     /**
      * Strings from buttons.
      */
-    protected static String BUTTON_ADD_VIEW_SURGERIES = "ADD AND VIEW SURGERIES";
+    protected static String BUTTON_ADD_VIEW_SURGERIES = "VIEW SCHEDULE";
     protected static String BUTTON_SCHEDULE_SURGERIES = "SCHEDULE SURGERIES";
     /**
      * Buttons for the view.
      */
     private JButton addViewSurgeriesButton;
     private JButton scheduleSurgeriesButton;
+
+    private RequestHandler requestHandler;
+
+    private HashMap<Integer, ArrayList> scheduledSurgeriesMap;
 
     public ScheduleView() {
         /**
@@ -48,14 +61,10 @@ public class ScheduleView implements ActionListener {
          */
         createPanelButtons();
         /**
-         * Create tab rooms
-         */
-        createTabRooms();
-        /**
          * Add the panels into the main frame
          */
         mainFrame.add(panelButtons, BorderLayout.NORTH);
-        mainFrame.add(tabsOperatingRooms,BorderLayout.CENTER);
+
         /**
          * Minor configurations
          */
@@ -64,14 +73,37 @@ public class ScheduleView implements ActionListener {
          * Configuration for correct presentation
          */
         mainFrame.pack();
+
+        requestHandler = new RequestHandler();
     }
 
-    public void createTabRooms(){
+    public void createTabRooms() throws IOException {
         /**
          * THIS PART WILL BE THE QUERY TO RETRIEVE DATA FROM THE JSON FILE
          */
+        int numberOfRooms = requestHandler.getNumberOperatingRooms();
+        String response = requestHandler.getSolution();
+        this.parse(response);
         tabsOperatingRooms  = new JTabbedPane();
         tabsOperatingRooms.setPreferredSize(new Dimension(1000, 850));
+
+        for (int counterRooms = 1; counterRooms <= numberOfRooms; counterRooms++){
+            for (Map.Entry<Integer, ArrayList> entry : scheduledSurgeriesMap.entrySet()) {
+                DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss");
+                int key = entry.getKey();
+                ArrayList value = entry.getValue();
+                ArrayList<SurgeryView> surgeriesView = new ArrayList<>();
+                if (((int) value.get(0)) == counterRooms) {
+                    LocalDateTime openingOperatingRoom = LocalDateTime.parse(value.get(2).toString(), format).truncatedTo(ChronoUnit.MINUTES);
+                    LocalDateTime closingOperationRoom = LocalDateTime.parse(value.get(3).toString(), format).truncatedTo(ChronoUnit.MINUTES);
+                    surgeriesView.add(new SurgeryView(openingOperatingRoom, closingOperationRoom, "Surgery " + key));
+                    System.out.println(openingOperatingRoom.toString());
+                    System.out.println(closingOperationRoom.toString());
+                    System.out.println("Surgery " + key);
+                }
+            }
+        }
+
 
         /**
          * OR1
@@ -102,7 +134,37 @@ public class ScheduleView implements ActionListener {
         JComponent operatingRoomThree = new WeeklySurgeriesView(surgeriesThree);
         tabsOperatingRooms.add("OR3", operatingRoomThree);
 
+
+
+        /**
+         * IMPORTANT PART TO CREATE THE NEW TAB PANS
+         */
+        mainFrame.add(tabsOperatingRooms,BorderLayout.CENTER);
+        mainFrame.pack();
+        mainFrame.setVisible(true);
     }
+
+    public void parse(String responseJSON) {
+        scheduledSurgeriesMap = new HashMap<>();
+        JSONObject timeTable = new JSONObject(responseJSON);
+        JSONArray scheduledSurgeries = timeTable.getJSONArray("scheduledSurgeries");
+        for (int counter = 0; counter < scheduledSurgeries.length(); counter ++){
+            ArrayList information = new ArrayList();
+            JSONObject scheduledSurgery = scheduledSurgeries.getJSONObject(counter);
+            JSONObject operatingRoom = scheduledSurgery.getJSONObject("operatingRoom");
+            int scheduledSurgeryId = scheduledSurgery.getInt("scheduleSurgeryId");
+            int operatingRoomId = operatingRoom.getInt("operatingRoomId");
+            String operatingRoomName = operatingRoom.getString("operatingRoomName");
+            information.add(operatingRoomId);
+            information.add(operatingRoomName);
+            String startingTimeSurgery = scheduledSurgery.getString("startingTimeSurgery");
+            information.add(startingTimeSurgery);
+            String finishingTimeSurgery = scheduledSurgery.getString("finishingTimeSurgery");
+            information.add(finishingTimeSurgery);
+            scheduledSurgeriesMap.put(scheduledSurgeryId, information);
+        }
+    }
+
 
     public void createMainFrame() {
         mainFrame = new JFrame("SCHEDULING SURGERIES");
@@ -117,8 +179,8 @@ public class ScheduleView implements ActionListener {
         panelButtons = new JPanel();
         panelButtons.setPreferredSize(new Dimension(1000, 50));
         panelButtons.setBackground(Color.gray);
-        panelButtons.add(addViewSurgeriesButton);
         panelButtons.add(scheduleSurgeriesButton);
+        panelButtons.add(addViewSurgeriesButton);
         addButtonSListener();
     }
 
@@ -131,7 +193,11 @@ public class ScheduleView implements ActionListener {
          */
         addViewSurgeriesButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //   createPanelAddSurgeries();
+                try {
+                    createTabRooms();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
                 System.out.println("ADD AND VIEW SURGERIES BUTTON");
             }
         });
@@ -140,7 +206,11 @@ public class ScheduleView implements ActionListener {
          */
         scheduleSurgeriesButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                //   createPanelAddSurgeries();
+                try {
+                    requestHandler.solve();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
                 System.out.println("SCHEDULE SURGERIES BUTTON");
             }
         });

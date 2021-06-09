@@ -72,8 +72,9 @@ public class TimeTableResource {
     @POST
     @Path("/solve")
     @Transactional
-    public void solve() {
+    public Response solve() {
         solverJob = solverManager.solve(SINGLETON_TIME_TABLE_ID, findById(SINGLETON_TIME_TABLE_ID));
+        return Response.status(Response.Status.OK).build();
     }
 
     @POST
