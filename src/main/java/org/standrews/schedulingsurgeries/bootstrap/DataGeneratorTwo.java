@@ -21,8 +21,6 @@ public class DataGeneratorTwo {
         LocalDateTime closingOperationRoom = LocalDateTime.of(2021, 06, 18, 20, 00);
         Time time = new Time(openingOperatingRoom, closingOperationRoom);
         Time.persist(time);
-
-
         /**
          * Patients (DONE)
          */
@@ -96,8 +94,6 @@ public class DataGeneratorTwo {
         operatingRooms.add(new OperatingRoom("Centro Cirúrgico Sala 3", time));
         operatingRooms.add(new OperatingRoom("Centro Cirúrgico Sala 5", time));
         OperatingRoom.persist(operatingRooms);
-
-
         /**
          * Surgeries
          */
@@ -109,16 +105,20 @@ public class DataGeneratorTwo {
         /**
          * Scheduled surgery
          */
+        /*
         List <ScheduledSurgery> scheduledSurgeries = new ArrayList<>();
         scheduledSurgeries = setScheduleSurgeries(scheduledSurgeries, surgeries);
         ScheduledSurgery.persist(scheduledSurgeries);
+         */
     }
 
+    /*
     public List <ScheduledSurgery> setScheduleSurgeries(List <ScheduledSurgery> scheduledSurgeries, List <Surgery> surgeries) {
         for (Surgery eachSurgery: surgeries) {
             scheduledSurgeries.add(new ScheduledSurgery(eachSurgery));
         }
         return scheduledSurgeries;
     }
+     */
 
 }

@@ -22,10 +22,14 @@ public class TimeTable {
     @ValueRangeProvider(id = "roomRange")
     @ProblemFactCollectionProperty
     private List<OperatingRoom> operatingRooms;
+    /*
     @ProblemFactCollectionProperty
     private List<Surgery> surgeries;
     @PlanningEntityCollectionProperty
     private List<ScheduledSurgery> scheduledSurgeries;
+     */
+    @PlanningEntityCollectionProperty
+    private List<Surgery> surgeries;
     @PlanningScore
     private HardSoftScore scoreSolver;
     private SolverStatus solverStatus;
@@ -33,10 +37,19 @@ public class TimeTable {
     public TimeTable(){
     }
 
+    /*
     public TimeTable(List<OperatingRoom> operatingRooms, List<Surgery> surgeries, List<ScheduledSurgery> scheduledSurgeries) {
         this.operatingRooms = operatingRooms;
         this.surgeries = surgeries;
-        this.scheduledSurgeries = scheduledSurgeries;
+    //    this.scheduledSurgeries = scheduledSurgeries;
+        setStartingTimeSurgeries(operatingRooms.get(0).getOpeningTime(), getOperatingRooms().get(0).getClosingTime());
+    }
+     */
+
+    public TimeTable(List<OperatingRoom> operatingRooms, List<Surgery> surgeries) {
+        this.operatingRooms = operatingRooms;
+        this.surgeries = surgeries;
+        //    this.scheduledSurgeries = scheduledSurgeries;
         setStartingTimeSurgeries(operatingRooms.get(0).getOpeningTime(), getOperatingRooms().get(0).getClosingTime());
     }
 
@@ -68,6 +81,7 @@ public class TimeTable {
         this.surgeries = surgeries;
     }
 
+    /*
     public List<ScheduledSurgery> getScheduledSurgeries() {
         return scheduledSurgeries;
     }
@@ -75,6 +89,7 @@ public class TimeTable {
     public void setScheduledSurgeries(List<ScheduledSurgery> scheduledSurgeries) {
         this.scheduledSurgeries = scheduledSurgeries;
     }
+     */
 
     public HardSoftScore getScoreSolver() {
         return scoreSolver;

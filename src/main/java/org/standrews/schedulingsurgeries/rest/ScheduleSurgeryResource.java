@@ -13,7 +13,7 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class ScheduleSurgeryResource {
-
+    /*
     private static final Long SINGLETON_TIME_TABLE_ID = 1L;
 
     @POST
@@ -40,4 +40,5 @@ public class ScheduleSurgeryResource {
     public List<ScheduledSurgery> getScheduledSurgeries(){
         return ScheduledSurgery.listAll();
     }
+     */
 }

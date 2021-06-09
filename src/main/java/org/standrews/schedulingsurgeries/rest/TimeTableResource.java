@@ -65,8 +65,7 @@ public class TimeTableResource {
     protected TimeTable findById(Long id) {
         return new TimeTable(
                 OperatingRoom.listAll(),
-                Surgery.listAll(),
-                ScheduledSurgery.listAll());
+                Surgery.listAll());
     }
 
     @POST

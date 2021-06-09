@@ -10,6 +10,11 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+public class ScheduledSurgery {
+
+}
+
+/*
 @PlanningEntity
 @Entity
 public class ScheduledSurgery extends PanacheEntityBase {
@@ -31,9 +36,7 @@ public class ScheduledSurgery extends PanacheEntityBase {
         this.surgery = surgery;
     }
 
-    /**
-     * TO DO REVIEW THIS CONSTRUCTOR - I THINK IS DOING NOTHING (FIX THIS)
-     */
+
     public ScheduledSurgery(Surgery surgery, LocalDateTime startingTimeSurgery, LocalDateTime finishingTimeSurgery, OperatingRoom operatingRoom) {
         this(surgery);
         this.startingTimeSurgery = startingTimeSurgery;
@@ -146,7 +149,7 @@ public class ScheduledSurgery extends PanacheEntityBase {
         }
     }
 
-// TO DO: REVIEW
+
     @Override
     public String toString() {
         StringBuilder information = new StringBuilder();
@@ -167,3 +170,4 @@ public class ScheduledSurgery extends PanacheEntityBase {
     }
 
 }
+*/

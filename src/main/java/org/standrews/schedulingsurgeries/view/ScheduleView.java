@@ -111,19 +111,24 @@ public class ScheduleView implements ActionListener {
     public void parse(String responseJSON) {
         scheduledSurgeriesMap = new HashMap<>();
         JSONObject timeTable = new JSONObject(responseJSON);
-        JSONArray scheduledSurgeries = timeTable.getJSONArray("scheduledSurgeries");
+        JSONArray scheduledSurgeries = timeTable.getJSONArray("surgeries");
         for (int counter = 0; counter < scheduledSurgeries.length(); counter ++){
             ArrayList information = new ArrayList();
             JSONObject scheduledSurgery = scheduledSurgeries.getJSONObject(counter);
             JSONObject operatingRoom = scheduledSurgery.getJSONObject("operatingRoom");
-            int scheduledSurgeryId = scheduledSurgery.getInt("scheduleSurgeryId");
+            int scheduledSurgeryId = scheduledSurgery.getInt("surgeryId");
+            System.out.println(scheduledSurgeryId);
             int operatingRoomId = operatingRoom.getInt("operatingRoomId");
+            System.out.println(operatingRoomId);
             String operatingRoomName = operatingRoom.getString("operatingRoomName");
             information.add(operatingRoomId);
             information.add(operatingRoomName);
+            System.out.println(operatingRoomName);
             String startingTimeSurgery = scheduledSurgery.getString("startingTimeSurgery");
+            System.out.println(startingTimeSurgery);
             information.add(startingTimeSurgery);
             String finishingTimeSurgery = scheduledSurgery.getString("finishingTimeSurgery");
+            System.out.println(finishingTimeSurgery);
             information.add(finishingTimeSurgery);
             scheduledSurgeriesMap.put(scheduledSurgeryId, information);
         }
