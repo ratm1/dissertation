@@ -18,8 +18,6 @@ import java.util.List;
 public class TimeResource {
 
     private static final Long SINGLETON_TIME_TABLE_ID = 1L;
-
-
     @POST
     @Path("{timeId}/{openingTime}/{closingTime}")
     public Response add(@PathParam("timeId") Long timeId, @PathParam("openingTime") String openingTime,
@@ -28,15 +26,13 @@ public class TimeResource {
         LocalDateTime openingOperatingRoom = LocalDateTime.parse(openingTime, format);
         LocalDateTime closingOperationRoom = LocalDateTime.parse(closingTime, format);
         Time time = Time.findById(timeId);
-        /**
-         * FIX THIS
-         */
         if (time == null) {
             time = new Time(openingOperatingRoom, closingOperationRoom);
         } else {
             time.setStartingTimeWeekly(openingOperatingRoom);
             time.setFinishTimeWeekly(closingOperationRoom);
         }
+
         Time.persist(time);
         return Response.accepted(time).build();
     }

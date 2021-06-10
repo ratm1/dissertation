@@ -28,8 +28,6 @@ public class Surgery extends PanacheEntityBase {
     @ManyToOne
     private SurgeryType surgeryType;
     @ManyToOne
-    private Insurance insurance;
-    @ManyToOne
     private Procedure procedure;
     private Integer surgeryDuration;
     @ManyToOne
@@ -41,13 +39,12 @@ public class Surgery extends PanacheEntityBase {
     }
 
     public Surgery(Patient patient, Surgeon surgeon, AnesthesiaType anesthesiaType, Anesthetist anesthetist,
-                   SurgeryType surgeryType, Insurance insurance, Procedure procedure, Integer surgeryDuration) {
+                   SurgeryType surgeryType, Procedure procedure, Integer surgeryDuration) {
         this.patient = patient;
         this.surgeon = surgeon;
         this.anesthesiaType = anesthesiaType;
         this.anesthetist = anesthetist;
         this.surgeryType = surgeryType;
-        this.insurance= insurance;
         this.procedure = procedure;
         this.surgeryDuration = surgeryDuration;
     }
@@ -195,14 +192,6 @@ public class Surgery extends PanacheEntityBase {
 
     public void setProcedure(Procedure procedure) {
         this.procedure = procedure;
-    }
-
-    public Insurance getInsurance() {
-        return insurance;
-    }
-
-    public void setInsurance(Insurance insurance) {
-        this.insurance = insurance;
     }
 
     public Integer getSurgeryDuration() {

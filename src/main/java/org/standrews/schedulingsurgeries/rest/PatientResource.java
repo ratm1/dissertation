@@ -16,12 +16,14 @@ public class PatientResource {
     private static final Long SINGLETON_TIME_TABLE_ID = 1L;
 
     @POST
-    @Path("{patientId}/{firstName}/{lastName}")
-    public Response add(@PathParam("patientId") Long patientId, @PathParam("firstName") String firstName, @PathParam("lastName") String lastName) {
+    @Path("{patientId}/{firstName}/{lastName}/{insuranceId}")
+    public Response add(@PathParam("patientId") Long patientId, @PathParam("firstName") String firstName,
+                        @PathParam("lastName") String lastName, @PathParam("insuranceId") Long insuranceId) {
         if (Patient.findById(patientId) != null) {
             return Response.status(Response.Status.NOT_ACCEPTABLE).build();
         }
-        Patient patient = new Patient(patientId, firstName, lastName);
+        Insurance insurance = Insurance.findById(insuranceId);
+        Patient patient = new Patient(patientId, firstName, lastName, insurance);
         Patient.persist(patient);
         return Response.accepted(patient).build();
     }

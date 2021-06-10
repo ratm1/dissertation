@@ -19,15 +19,25 @@ public class DataGeneratorTwo {
          */
         LocalDateTime openingOperatingRoom = LocalDateTime.of(2021, 06, 14, 8, 30);
         LocalDateTime closingOperationRoom = LocalDateTime.of(2021, 06, 18, 20, 00);
-        Time time = new Time(openingOperatingRoom, closingOperationRoom);
-        Time.persist(time);
+
+        List<Time> times = new ArrayList<>();
+        times.add(new Time());
+        Time.persist(times);
+        /**
+         * Insurances
+         */
+        List<Insurance> insurances = new ArrayList<>();
+        insurances.add(new Insurance("Particular"));
+        insurances.add(new Insurance("Sus"));
+        insurances.add(new Insurance("Unimed"));
+        Insurance.persist(insurances);
         /**
          * Patients (DONE)
          */
         List<Patient> patients = new ArrayList<>();
-        patients.add(new Patient(1112,"NA","NA"));
-        patients.add(new Patient(2213,"NA","NA"));
-        patients.add(new Patient(3314,"NA","NA"));
+        patients.add(new Patient(1112,"NA","NA", insurances.get(0)));
+        patients.add(new Patient(2213,"NA","NA", insurances.get(0)));
+        patients.add(new Patient(3314,"NA","NA", insurances.get(0)));
         Patient.persist(patients);
         /**
          * Surgery Type (DONE)
@@ -49,14 +59,7 @@ public class DataGeneratorTwo {
         anesthesiaTypes.add(new AnesthesiaType(10));
         anesthesiaTypes.add(new AnesthesiaType(16));
         AnesthesiaType.persist(anesthesiaTypes);
-        /**
-         * Insurances
-         */
-        List<Insurance> insurances = new ArrayList<>();
-        insurances.add(new Insurance("Particular"));
-        insurances.add(new Insurance("Sus"));
-        insurances.add(new Insurance("Unimed"));
-        Insurance.persist(insurances);
+
         /**
          * Specialities
          */
@@ -91,16 +94,16 @@ public class DataGeneratorTwo {
         OperatingRoom.persist(operatingRooms);
          */
         List <OperatingRoom> operatingRooms = new ArrayList<>();
-        operatingRooms.add(new OperatingRoom("Centro Cirúrgico Sala 3", time));
-        operatingRooms.add(new OperatingRoom("Centro Cirúrgico Sala 5", time));
+        operatingRooms.add(new OperatingRoom("Centro Cirúrgico Sala 3", times.get(0)));
+        operatingRooms.add(new OperatingRoom("Centro Cirúrgico Sala 5", times.get(0)));
         OperatingRoom.persist(operatingRooms);
         /**
          * Surgeries
          */
         List <Surgery> surgeries = new ArrayList<>();
-        surgeries.add(new Surgery(patients.get(0), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), insurances.get(0), procedures.get(0),  50));
-        surgeries.add(new Surgery(patients.get(1), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), insurances.get(1), procedures.get(1),  45));
-        surgeries.add(new Surgery(patients.get(1), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), insurances.get(0), procedures.get(2),  65));
+        surgeries.add(new Surgery(patients.get(0), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(0),  50));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), procedures.get(1),  45));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(2),  65));
         Surgery.persist(surgeries);
         /**
          * Scheduled surgery

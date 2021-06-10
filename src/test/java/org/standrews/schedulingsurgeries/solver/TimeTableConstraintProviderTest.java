@@ -18,9 +18,14 @@ public class TimeTableConstraintProviderTest {
         LocalDateTime openingOperatingRoom = LocalDateTime.of(2021, 06, 14, 8, 30);
         LocalDateTime closingOperationRoom = LocalDateTime.of(2021, 06, 18, 20, 00);
 
+        List<Insurance> insurances = new ArrayList<>();
+        insurances.add(new Insurance("Particular"));
+        insurances.add(new Insurance("Sus"));
+        insurances.add(new Insurance("Unimed"));
+
         List<Patient> patients = new ArrayList<>();
-        patients.add(new Patient(11,"NA","NA"));
-        patients.add(new Patient(22,"NA","NA"));
+        patients.add(new Patient(11,"NA","NA", insurances.get(0)));
+        patients.add(new Patient(22,"NA","NA", insurances.get(0)));
 
         List<SurgeryType> surgeryTypeList = new ArrayList<>();
         surgeryTypeList.add(new SurgeryType("E", "Elective"));
@@ -42,11 +47,6 @@ public class TimeTableConstraintProviderTest {
         List<Anesthetist> anesthetists = new ArrayList<>();
         anesthetists.add(new Anesthetist(234, "NA","NA"));
         anesthetists.add(new Anesthetist(456, "NA", "NA"));
-
-        List<Insurance> insurances = new ArrayList<>();
-        insurances.add(new Insurance("Particular"));
-        insurances.add(new Insurance("Sus"));
-        insurances.add(new Insurance("Unimed"));
 
         List<Procedure> procedures = new ArrayList<>();
         procedures.add(new Procedure(234, specialities.get(0), "Cesariana (feto unico)"));

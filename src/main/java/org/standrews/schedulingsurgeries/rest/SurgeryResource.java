@@ -22,18 +22,17 @@ public class SurgeryResource {
     @Path("{patientId}/{surgeonId}/{anesthesiaId}/{anesthetistId}/{surgeryTypeId}/{insuranceId}/{procedureId}/{duration}")
     public Response add(@PathParam("patientId") Long patientId, @PathParam("surgeonId") Long surgeonId,
                         @PathParam("anesthesiaId") Long anesthesiaId,@PathParam("anesthetistId") Long anesthetistId,
-                        @PathParam("surgeryTypeId") Long surgeryTypeId, @PathParam("insuranceId") Long insuranceId,
-                        @PathParam("procedureId") Long procedureId, @PathParam("duration") Integer duration) {
+                        @PathParam("surgeryTypeId") Long surgeryTypeId, @PathParam("procedureId") Long procedureId,
+                        @PathParam("duration") Integer duration) {
 
         Patient patient = Patient.findById(patientId);
         Surgeon surgeon = Surgeon.findById(surgeonId);
         AnesthesiaType anesthesiaType = AnesthesiaType.findById(anesthesiaId);
         Anesthetist anesthetist = Anesthetist.findById(anesthetistId);
         SurgeryType surgeryType = SurgeryType.findById(surgeryTypeId);
-        Insurance insurance = Insurance.findById(insuranceId);
         Procedure procedure = Procedure.findById(procedureId);
         Integer surgeryDuration = duration;
-        Surgery surgery = new Surgery(patient, surgeon, anesthesiaType, anesthetist, surgeryType, insurance,  procedure, surgeryDuration);
+        Surgery surgery = new Surgery(patient, surgeon, anesthesiaType, anesthetist, surgeryType, procedure, surgeryDuration);
         Surgery.persist(surgery);
         return Response.accepted(surgery).build();
     }

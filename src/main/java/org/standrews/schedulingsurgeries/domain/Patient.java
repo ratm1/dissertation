@@ -4,6 +4,8 @@ import org.optaplanner.core.api.domain.lookup.PlanningId;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Patient extends PanacheEntityBase {
@@ -12,14 +14,17 @@ public class Patient extends PanacheEntityBase {
     private Long patientId;
     private String firstName;
     private String lastName;
+    @OneToOne
+    private Insurance insurance;
 
     public Patient(){
     }
 
-    public Patient(long patientId, String firstName, String lastName) {
+    public Patient(long patientId, String firstName, String lastName, Insurance insurance) {
         this.patientId = patientId;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.insurance = insurance;
     }
 
     public Long getPatientId() {
@@ -33,4 +38,13 @@ public class Patient extends PanacheEntityBase {
     public String getLastName() {
         return lastName;
     }
+
+    public Insurance getInsurance() {
+        return insurance;
+    }
+
+    public void setInsurance(Insurance insurance) {
+        this.insurance = insurance;
+    }
+
 }

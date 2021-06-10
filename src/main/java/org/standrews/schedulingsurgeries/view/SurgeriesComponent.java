@@ -11,10 +11,7 @@ import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Locale;
 
-public class WeeklySurgeriesView extends JComponent {
-    /**
-     * Surgeries view
-     */
+public class SurgeriesComponent extends JComponent {
     private ArrayList<SurgeryView> surgeryViews;
     private static final LocalDateTime START_WEEK = LocalDateTime.of(2021,6,14,7,30);
     private static final LocalDateTime FINAL_WEEK = LocalDateTime.of(2021,6,18,20,00);
@@ -22,20 +19,19 @@ public class WeeklySurgeriesView extends JComponent {
     private LocalDate closingDateOR;
     private LocalTime openingTimeOR;
     private LocalTime closingTimeOR;
-    private RequestHandler requestHandler;
     private static final int HEIGHT_DAYS = 50;
     private static final int COLUMN_TIME_WIDTH = 60;
     private double scaleSchedule;
     private double widthOfTheDay;
     private Graphics2D graphics;
 
-    public WeeklySurgeriesView(ArrayList<SurgeryView> surgeryViews) {
+    public SurgeriesComponent() {
         this.surgeryViews = surgeryViews;
         openingDateOR = LocalDate.of(START_WEEK.getYear(), START_WEEK.getMonth(), START_WEEK.getDayOfMonth());
         closingDateOR = LocalDate.of(FINAL_WEEK.getYear(), FINAL_WEEK.getMonth(), FINAL_WEEK.getDayOfMonth());
         openingTimeOR = LocalTime.of(START_WEEK.getHour(), START_WEEK.getMinute());
         closingTimeOR = LocalTime.of(FINAL_WEEK.getHour(), FINAL_WEEK.getMinute());
-        requestHandler = new RequestHandler();
+
     }
 
     @Override
@@ -46,7 +42,7 @@ public class WeeklySurgeriesView extends JComponent {
         addDayHeaders();
         addLinesSchedule();
         addTimes();
-        addSurgeries();
+      //  addSurgeries();
     }
 
     public void addDayHeaders() {

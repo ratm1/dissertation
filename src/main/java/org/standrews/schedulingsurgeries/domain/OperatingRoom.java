@@ -27,6 +27,7 @@ public class OperatingRoom extends PanacheEntityBase {
         this.operatingRoomName = operatingRoomName;
         this.startingTimeWeekly = time.getStartingTimeWeekly();
         this.finishTimeWeekly = time.getFinishTimeWeekly();
+        this.time = time;
     }
 
     /*
@@ -46,11 +47,19 @@ public class OperatingRoom extends PanacheEntityBase {
     }
 
     public LocalDateTime getOpeningTime() {
-        return startingTimeWeekly;
+        return this.getTime().getStartingTimeWeekly();
     }
 
     public LocalDateTime getClosingTime() {
-        return finishTimeWeekly;
+        return this.getTime().getFinishTimeWeekly();
+    }
+
+    public Time getTime() {
+        return time;
+    }
+
+    public void setTime(Time time) {
+        this.time = time;
     }
 
     @Override

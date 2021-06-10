@@ -30,7 +30,9 @@ public class PatientResourceTest {
                         "[0].lastName", is("NA"));
     }
 
-
+    /**
+     * Review this part
+     */
     @Test
     public void testPatient(){
         JsonObject jsonObject = Json.createObjectBuilder()
@@ -43,7 +45,7 @@ public class PatientResourceTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(jsonObject.toString())
                 .when()
-                .post("/patients/999/NA/NA")
+                .post("/patients/999/NA/NA/1")
                 .then()
                 .statusCode(Response.Status.ACCEPTED.getStatusCode());
 
@@ -51,7 +53,7 @@ public class PatientResourceTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(jsonObject.toString())
                 .when()
-                .post("/patients/999/NA/NA")
+                .post("/patients/999/NA/NA/1")
                 .then()
                 .statusCode(Response.Status.NOT_ACCEPTABLE.getStatusCode());
 
