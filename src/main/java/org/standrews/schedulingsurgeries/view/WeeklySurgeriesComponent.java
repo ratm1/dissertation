@@ -7,6 +7,7 @@ import java.awt.geom.Rectangle2D;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.ArrayList;
 import java.util.Locale;
@@ -99,13 +100,9 @@ public class WeeklySurgeriesComponent extends JComponent {
             graphics.fill(eachRectangleSurgery);
             graphics.setColor(originalColor);
             StringBuilder startFinishSurgery = new StringBuilder();
-            startFinishSurgery.append(eachSurgery.getStartingTimeSurgery().getHour());
-            startFinishSurgery.append(":");
-            startFinishSurgery.append(eachSurgery.getStartingTimeSurgery().getMinute());
+            startFinishSurgery.append(eachSurgery.getStartingTimeSurgery().format(DateTimeFormatter.ofPattern("HH:mm")));
             startFinishSurgery.append("-");
-            startFinishSurgery.append(eachSurgery.getFinishingTimeSurgery().getHour());
-            startFinishSurgery.append(":");
-            startFinishSurgery.append(eachSurgery.getFinishingTimeSurgery().getMinute());
+            startFinishSurgery.append(eachSurgery.getFinishingTimeSurgery().format(DateTimeFormatter.ofPattern("HH:mm")));
             graphics.drawString(startFinishSurgery.toString(), (int) xCoordinate + 10, (int) yOneCoordinate + 15);
             graphics.drawString(eachSurgery.getText(), (int) xCoordinate + 100, (int) yOneCoordinate + 15);
         }

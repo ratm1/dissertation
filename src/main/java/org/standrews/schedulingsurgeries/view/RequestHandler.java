@@ -32,7 +32,7 @@ public class RequestHandler {
              HttpGet request = new HttpGet("http://localhost:8080/rooms");
              request.addHeader("content-type", "application/json");
              CloseableHttpResponse response = httpClient.execute(request);
-             String responseJSON = EntityUtils.toString(response.getEntity());
+             String responseJSON = EntityUtils.toString(response.getEntity(),"UTF-8");
              JSONArray rooms = new JSONArray(responseJSON);
              numberOfRooms = rooms.length();
              return numberOfRooms;
@@ -51,6 +51,24 @@ public class RequestHandler {
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         try {
             HttpGet request = new HttpGet("http://localhost:8080/timeTable/solution");
+            request.addHeader("content-type", "application/json");
+            CloseableHttpResponse response = httpClient.execute(request);
+            responseJSON = EntityUtils.toString(response.getEntity(),  "UTF-8");
+            return responseJSON;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            httpClient.close();
+        }
+        return responseJSON;
+    }
+
+    public String getSurgeries() throws IOException {
+        String responseJSON = "";
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        try {
+            HttpGet request = new HttpGet("http://localhost:8080/surgeries");
             request.addHeader("content-type", "application/json");
             CloseableHttpResponse response = httpClient.execute(request);
             responseJSON = EntityUtils.toString(response.getEntity(),  "UTF-8");

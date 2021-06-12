@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,12 +31,12 @@ public class ListSurgeriesView implements ActionListener {
      * Strings from buttons.
      */
     protected static String BUTTON_ADD_SURGERIES = "ADD SURGERIES";
-    protected static String BUTTON_UPDATE_VIEW_SURGERIES = "UPDATE VIEW SURGERIES";
+    protected static String BUTTON_VIEW_SURGERIES = "VIEW SURGERIES";
     /**
      * Buttons for the view.
      */
     private JButton addSurgeriesButton;
-    private JButton updateViewSurgeriesButton;
+    private JButton ViewSurgeriesButton;
 
     private RequestHandler requestHandler;
 
@@ -52,12 +51,6 @@ public class ListSurgeriesView implements ActionListener {
          * Create the panel for the buttons
          */
         createPanelButtons();
-
-
-        /**
-         * Create tab rooms
-         */
-
         /**
          * Add the panels into the main frame
          */
@@ -77,9 +70,11 @@ public class ListSurgeriesView implements ActionListener {
     public void createSurgeriesView() throws IOException {
         requestHandler = new RequestHandler();
         int numberOfRooms = requestHandler.getNumberOperatingRooms();
-        SurgeriesComponent surgeriesComponent = new SurgeriesComponent();
-        surgeriesComponent.setPreferredSize(new Dimension(1000, 850));
-        mainFrame.add(surgeriesComponent,BorderLayout.CENTER);
+        /*
+        ListSurgeriesComponent listSurgeriesComponent = new ListSurgeriesComponent();
+        listSurgeriesComponent.setPreferredSize(new Dimension(1000, 850));
+        mainFrame.add(listSurgeriesComponent,BorderLayout.CENTER);
+         */
     }
 
     public void parse(String responseJSON) {
@@ -130,13 +125,13 @@ public class ListSurgeriesView implements ActionListener {
 
     public void createPanelButtons() {
         addSurgeriesButton = new JButton(BUTTON_ADD_SURGERIES);
-        updateViewSurgeriesButton = new JButton(BUTTON_UPDATE_VIEW_SURGERIES);
+        ViewSurgeriesButton = new JButton(BUTTON_VIEW_SURGERIES);
         panelButtons = new JPanel();
         panelButtons.setPreferredSize(new Dimension(1000, 40));
         panelButtons.setBackground(Color.gray);
 
         panelButtons.add(addSurgeriesButton);
-        panelButtons.add(updateViewSurgeriesButton);
+        panelButtons.add(ViewSurgeriesButton);
         addButtonSListener();
     }
 
@@ -155,7 +150,7 @@ public class ListSurgeriesView implements ActionListener {
         /**
          * Action for the view button
          */
-        updateViewSurgeriesButton.addActionListener(new ActionListener() {
+        ViewSurgeriesButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("UPDATE VIEW SURGERIES BUTTON");
             }
@@ -164,9 +159,11 @@ public class ListSurgeriesView implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        /*
         Window win = SwingUtilities.getWindowAncestor((Component) e.getSource());
         win.dispose();
         mainFrame.dispatchEvent(new WindowEvent(mainFrame, WindowEvent.WINDOW_CLOSING));
+         */
 
     }
 }

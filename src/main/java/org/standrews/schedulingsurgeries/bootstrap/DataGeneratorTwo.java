@@ -19,9 +19,11 @@ public class DataGeneratorTwo {
          */
         LocalDateTime openingOperatingRoom = LocalDateTime.of(2021, 06, 14, 8, 30);
         LocalDateTime closingOperationRoom = LocalDateTime.of(2021, 06, 18, 20, 00);
-
+        /**
+         * FIX THIS: REVIEW TO MAKE A POST REQUEST FROM THE UI
+         */
         List<Time> times = new ArrayList<>();
-        times.add(new Time());
+        times.add(new Time(openingOperatingRoom,closingOperationRoom));
         Time.persist(times);
         /**
          * Insurances
@@ -96,6 +98,8 @@ public class DataGeneratorTwo {
         List <OperatingRoom> operatingRooms = new ArrayList<>();
         operatingRooms.add(new OperatingRoom("Centro Cirúrgico Sala 3", times.get(0)));
         operatingRooms.add(new OperatingRoom("Centro Cirúrgico Sala 5", times.get(0)));
+        operatingRooms.add(new OperatingRoom("Centro Cirúrgico Sala 7 7", times.get(0)));
+        operatingRooms.add(new OperatingRoom("Centro Cirúrgico Sala 6 6", times.get(0)));
         OperatingRoom.persist(operatingRooms);
         /**
          * Surgeries
@@ -104,6 +108,64 @@ public class DataGeneratorTwo {
         surgeries.add(new Surgery(patients.get(0), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(0),  50));
         surgeries.add(new Surgery(patients.get(1), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), procedures.get(1),  45));
         surgeries.add(new Surgery(patients.get(1), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(2),  65));
+ /*
+        surgeries.add(new Surgery(patients.get(0), surgeons.get(2), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(0),  100));
+        surgeries.add(new Surgery(patients.get(2), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), procedures.get(1),  65));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(2),  65));
+
+        surgeries.add(new Surgery(patients.get(0), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(0),  50));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), procedures.get(1),  45));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(2),  65));
+
+        surgeries.add(new Surgery(patients.get(0), surgeons.get(2), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(0),  100));
+        surgeries.add(new Surgery(patients.get(2), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), procedures.get(1),  65));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(2),  65));
+
+        surgeries.add(new Surgery(patients.get(0), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(0),  150));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), procedures.get(1),  45));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(2),  210));
+
+        surgeries.add(new Surgery(patients.get(0), surgeons.get(2), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(0),  100));
+        surgeries.add(new Surgery(patients.get(2), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), procedures.get(1),  65));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(2),  165));
+
+        surgeries.add(new Surgery(patients.get(0), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(0),  50));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), procedures.get(1),  45));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(2),  180));
+
+        surgeries.add(new Surgery(patients.get(0), surgeons.get(2), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(0),  100));
+        surgeries.add(new Surgery(patients.get(2), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), procedures.get(1),  165));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(2),  155));
+
+        surgeries.add(new Surgery(patients.get(0), surgeons.get(2), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(0),  100));
+        surgeries.add(new Surgery(patients.get(2), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), procedures.get(1),  65));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(2),  65));
+
+        surgeries.add(new Surgery(patients.get(0), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(0),  50));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), procedures.get(1),  45));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(2),  65));
+
+        surgeries.add(new Surgery(patients.get(0), surgeons.get(2), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(0),  100));
+        surgeries.add(new Surgery(patients.get(2), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), procedures.get(1),  65));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(2),  65));
+
+        surgeries.add(new Surgery(patients.get(0), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(0),  150));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), procedures.get(1),  45));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(2),  210));
+
+        surgeries.add(new Surgery(patients.get(0), surgeons.get(2), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(0),  100));
+        surgeries.add(new Surgery(patients.get(2), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), procedures.get(1),  65));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(2),  165));
+
+        surgeries.add(new Surgery(patients.get(0), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(0),  50));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), procedures.get(1),  45));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(2),  180));
+
+        surgeries.add(new Surgery(patients.get(0), surgeons.get(2), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(0),  100));
+        surgeries.add(new Surgery(patients.get(2), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), procedures.get(1),  165));
+        surgeries.add(new Surgery(patients.get(1), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(2),  155));
+        */
+
         Surgery.persist(surgeries);
         /**
          * Scheduled surgery
