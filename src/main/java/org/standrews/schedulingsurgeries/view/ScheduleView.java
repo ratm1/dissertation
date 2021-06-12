@@ -20,7 +20,7 @@ public class ScheduleView implements ActionListener {
      * Default width and height.
      */
     private static int DEFAULT_FRAME_WIDTH = 1000;
-    private static int DEFAULT_FRAME_HEIGHT = 1000;
+    private static int DEFAULT_FRAME_HEIGHT = 900;
 
     /**
      * Variables for the frame and panels.
@@ -31,8 +31,11 @@ public class ScheduleView implements ActionListener {
     private JPanel panelWelcome;
     private JLabel welcomeMessage;
     private JPanel operatingRoomsInformation;
-    private JComponent listSurgeriesComponent;
+   // private JComponent listSurgeriesComponent;
+
+    private ListSurgeriesComponent listSurgeriesComponent;
     private JPanel listSurgeriesPanel;
+    private JScrollPane scrollPanelSurgeries;
     /**
      * Strings from buttons.
      */
@@ -91,7 +94,7 @@ public class ScheduleView implements ActionListener {
 
     public void addTabRooms() throws IOException {
         mainFrame.remove(panelWelcome);
-        mainFrame.remove(listSurgeriesPanel);
+        mainFrame.remove(scrollPanelSurgeries);
         int numberOfRooms = requestHandler.getNumberOperatingRooms();
         String response = requestHandler.getSolution();
         this.parseRoomsJson(response);
@@ -115,29 +118,25 @@ public class ScheduleView implements ActionListener {
             JComponent operatingRoom = new WeeklySurgeriesComponent(surgeriesView);
             tabsOperatingRooms.add("OR " + roomNumber, operatingRoom);
         }
-
         mainFrame.add(tabsOperatingRooms,BorderLayout.CENTER);
         mainFrame.add(operatingRoomsInformation, BorderLayout.SOUTH);
         mainFrame.pack();
         mainFrame.setVisible(true);
     }
 
-
-
     public void createViews() {
-        listSurgeriesPanel = new JPanel();
         tabsOperatingRooms  = new JTabbedPane();
         operatingRoomsInformation = new JPanel();
+        scrollPanelSurgeries = new JScrollPane();
     }
 
-    public void addInformationSurgeries() throws IOException {
+    public void addListSurgeries() throws IOException {
         /**
          * IMPORTANT
          */
         mainFrame.remove(panelWelcome);
         mainFrame.remove(tabsOperatingRooms);
         mainFrame.remove(operatingRoomsInformation);
-        listSurgeriesPanel.removeAll();
         /**
          * REVIEW THIS PART IS FOR THE REQUEST CALL
          */
@@ -153,10 +152,10 @@ public class ScheduleView implements ActionListener {
         }
 
         listSurgeriesComponent = new ListSurgeriesComponent(informationSurgeryView);
-        listSurgeriesComponent.setPreferredSize(new Dimension(1000, 850));
-        listSurgeriesPanel.add(listSurgeriesComponent, BorderLayout.CENTER);
+        listSurgeriesComponent.setPreferredSize(new Dimension(1000, 3000));
+        scrollPanelSurgeries = new JScrollPane(listSurgeriesComponent);
 
-        mainFrame.add(listSurgeriesPanel);
+        mainFrame.add(scrollPanelSurgeries);
         mainFrame.pack();
         mainFrame.setVisible(true);
     }
@@ -210,7 +209,6 @@ public class ScheduleView implements ActionListener {
         }
     }
 
-
     public void createMainFrame() {
         mainFrame = new JFrame("SCHEDULING SURGERIES");
         mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -235,19 +233,16 @@ public class ScheduleView implements ActionListener {
         viewListSurgeriesButton = new JButton(BUTTON_VIEW_SURGERIES);
         scheduleSurgeriesButton = new JButton(BUTTON_SCHEDULE_SURGERIES);
         viewScheduleButton = new JButton(BUTTON_VIEW_SCHEDULE);
-
         viewScheduleButton.setEnabled(false);
         panelButtons = new JPanel();
         panelButtons.setPreferredSize(new Dimension(1000, 40));
         panelButtons.setBackground(Color.gray);
-
         panelButtons.add(addSurgeriesButton);
         panelButtons.add(viewListSurgeriesButton);
         panelButtons.add(scheduleSurgeriesButton);
         panelButtons.add(viewScheduleButton);
         addButtonSListener();
     }
-
     /**
      * Method for buttons listener
      */
@@ -260,7 +255,6 @@ public class ScheduleView implements ActionListener {
                 System.out.println("ADD SURGERIES BUTTON");
             }
         });
-
         /**
          * Action for the view surgeries button
          */
@@ -268,13 +262,12 @@ public class ScheduleView implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("VIEW SURGERIES BUTTON");
                 try {
-                    addInformationSurgeries();
+                    addListSurgeries();
                 } catch (IOException ioException) {
                     ioException.printStackTrace();
                 }
             }
         });
-
         /**
          * Action for the schedule surgeries button
          */
@@ -289,7 +282,6 @@ public class ScheduleView implements ActionListener {
                 }
             }
         });
-
         /**
          * Action for the the view surgeries button
          */
@@ -303,10 +295,6 @@ public class ScheduleView implements ActionListener {
                 }
             }
         });
-
-
-
-
     }
 
     @Override

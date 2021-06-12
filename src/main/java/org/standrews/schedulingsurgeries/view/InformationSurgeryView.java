@@ -42,22 +42,6 @@ public class InformationSurgeryView {
     }
 
     public String getProcedure() {
-        String[] words = procedure.split("\\s");
-        if (words.length > 3) {
-            StringBuilder procedureShortFormat = new StringBuilder();
-            procedureShortFormat.append(words[0]);
-            procedureShortFormat.append(" ");
-            procedureShortFormat.append(words[1]);
-            procedureShortFormat.append(" ");
-            procedureShortFormat.append(words[2]);
-            procedureShortFormat.append("\n");
-            for (int i = 3; i < words.length; i++) {
-                procedureShortFormat.append(words[i]);
-                procedureShortFormat.append(" ");
-            }
-
-            return procedureShortFormat.toString();
-        }
         return procedure;
     }
 
