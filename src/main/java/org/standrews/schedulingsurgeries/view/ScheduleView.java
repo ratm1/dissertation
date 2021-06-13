@@ -2,7 +2,6 @@ package org.standrews.schedulingsurgeries.view;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,13 +14,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ScheduleView implements ActionListener {
+public class ScheduleView {
     /**
      * Default width and height.
      */
     private static int DEFAULT_FRAME_WIDTH = 1000;
     private static int DEFAULT_FRAME_HEIGHT = 900;
-
     /**
      * Variables for the frame and panels.
      */
@@ -31,15 +29,15 @@ public class ScheduleView implements ActionListener {
     private JPanel panelWelcome;
     private JLabel welcomeMessage;
     private JPanel operatingRoomsInformation;
-   // private JComponent listSurgeriesComponent;
-
+    private JPanel panelAddSurgeries;
     private ListSurgeriesComponent listSurgeriesComponent;
-    private JPanel listSurgeriesPanel;
     private JScrollPane scrollPanelSurgeries;
+    private AddSurgeryComponent addSurgeryPanel;
     /**
      * Strings from buttons.
      */
     protected static String BUTTON_ADD_SURGERIES = "ADD SURGERIES";
+    protected static String BUTTON_ADD_INFORMATION_SURGERY = "ADD INFORMATION SURGERY";
     protected static String BUTTON_VIEW_SURGERIES = "VIEW SURGERIES";
     protected static String BUTTON_SCHEDULE_SURGERIES = "SCHEDULE SURGERIES";
     protected static String BUTTON_VIEW_SCHEDULE = "VIEW SCHEDULE";
@@ -52,9 +50,7 @@ public class ScheduleView implements ActionListener {
     private JButton viewScheduleButton;
 
     private RequestHandler requestHandler;
-
     private HashMap<Integer, ArrayList> scheduledSurgeriesMap;
-
     private HashMap<Integer, ArrayList> listSurgeriesMap;
 
     public ScheduleView() {
@@ -95,6 +91,7 @@ public class ScheduleView implements ActionListener {
     public void addTabRooms() throws IOException {
         mainFrame.remove(panelWelcome);
         mainFrame.remove(scrollPanelSurgeries);
+        mainFrame.remove(panelAddSurgeries);
         int numberOfRooms = requestHandler.getNumberOperatingRooms();
         String response = requestHandler.getSolution();
         this.parseRoomsJson(response);
@@ -102,7 +99,6 @@ public class ScheduleView implements ActionListener {
         operatingRoomsInformation.removeAll();
         tabsOperatingRooms.setPreferredSize(new Dimension(1000, 850));
         operatingRoomsInformation.setPreferredSize(new Dimension(1000, 100));
-
         for (int roomNumber = 1; roomNumber <= numberOfRooms; roomNumber++){
             ArrayList<SurgeryView> surgeriesView = new ArrayList<>();
             for (Map.Entry<Integer, ArrayList> entry : scheduledSurgeriesMap.entrySet()) {
@@ -128,6 +124,8 @@ public class ScheduleView implements ActionListener {
         tabsOperatingRooms  = new JTabbedPane();
         operatingRoomsInformation = new JPanel();
         scrollPanelSurgeries = new JScrollPane();
+        panelAddSurgeries = new JPanel();
+        addSurgeryPanel = new AddSurgeryComponent();
     }
 
     public void addListSurgeries() throws IOException {
@@ -137,21 +135,21 @@ public class ScheduleView implements ActionListener {
         mainFrame.remove(panelWelcome);
         mainFrame.remove(tabsOperatingRooms);
         mainFrame.remove(operatingRoomsInformation);
+        mainFrame.remove(panelAddSurgeries);
+        mainFrame.remove(addSurgeryPanel);
         /**
          * REVIEW THIS PART IS FOR THE REQUEST CALL
          */
         String response = requestHandler.getSurgeries();
         this.parseInformationSurgeriesJson(response);
-
-        ArrayList<InformationSurgeryView> informationSurgeryView = new ArrayList<>();
+        ArrayList<ListInformationSurgeriesView> listInformationSurgeriesView = new ArrayList<>();
         for (Map.Entry<Integer, ArrayList> entry : listSurgeriesMap.entrySet()) {
             int surgeryId = entry.getKey();
             ArrayList values = entry.getValue();
-            informationSurgeryView.add(new InformationSurgeryView(surgeryId, (int) values.get(0),
+            listInformationSurgeriesView.add(new ListInformationSurgeriesView(surgeryId, (int) values.get(0),
                                       (int) values.get(1), values.get(2).toString(), values.get(3).toString(), (int) values.get(4)));
         }
-
-        listSurgeriesComponent = new ListSurgeriesComponent(informationSurgeryView);
+        listSurgeriesComponent = new ListSurgeriesComponent(listInformationSurgeriesView);
         listSurgeriesComponent.setPreferredSize(new Dimension(1000, 3000));
         scrollPanelSurgeries = new JScrollPane(listSurgeriesComponent);
 
@@ -160,6 +158,18 @@ public class ScheduleView implements ActionListener {
         mainFrame.setVisible(true);
     }
 
+    public void addSurgeryInformation() throws IOException {
+        mainFrame.remove(panelWelcome);
+        mainFrame.remove(tabsOperatingRooms);
+        mainFrame.remove(operatingRoomsInformation);
+        mainFrame.remove(scrollPanelSurgeries);
+        addSurgeryPanel.removeAll();
+        addSurgeryPanel.addInformation(requestHandler);
+        addSurgeryPanel.setPreferredSize(new Dimension(1000, 750));
+        mainFrame.add(addSurgeryPanel, BorderLayout.CENTER);
+        mainFrame.pack();
+        mainFrame.setVisible(true);
+    }
 
     public void parseRoomsJson(String responseJSON) {
         scheduledSurgeriesMap = new HashMap<>();
@@ -233,6 +243,7 @@ public class ScheduleView implements ActionListener {
         viewListSurgeriesButton = new JButton(BUTTON_VIEW_SURGERIES);
         scheduleSurgeriesButton = new JButton(BUTTON_SCHEDULE_SURGERIES);
         viewScheduleButton = new JButton(BUTTON_VIEW_SCHEDULE);
+      //  addInformationSurgery = new JButton(BUTTON_ADD_INFORMATION_SURGERY);
         viewScheduleButton.setEnabled(false);
         panelButtons = new JPanel();
         panelButtons.setPreferredSize(new Dimension(1000, 40));
@@ -241,18 +252,23 @@ public class ScheduleView implements ActionListener {
         panelButtons.add(viewListSurgeriesButton);
         panelButtons.add(scheduleSurgeriesButton);
         panelButtons.add(viewScheduleButton);
-        addButtonSListener();
+        addButtonsListener();
     }
     /**
      * Method for buttons listener
      */
-    public void addButtonSListener() {
+    public void addButtonsListener() {
         /**
          * Action for the add surgeries button
          */
         addSurgeriesButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("ADD SURGERIES BUTTON");
+                try {
+                    addSurgeryInformation();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         });
         /**
@@ -295,10 +311,5 @@ public class ScheduleView implements ActionListener {
                 }
             }
         });
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
     }
 }

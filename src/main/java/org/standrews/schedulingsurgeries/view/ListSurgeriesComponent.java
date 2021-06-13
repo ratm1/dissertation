@@ -6,10 +6,10 @@ import java.util.ArrayList;
 
 public class ListSurgeriesComponent extends JComponent {
     private Graphics2D graphics;
-    private ArrayList<InformationSurgeryView> informationSurgeryView;
+    private ArrayList<ListInformationSurgeriesView> listInformationSurgeriesView;
 
-    public ListSurgeriesComponent(ArrayList<InformationSurgeryView> informationSurgeryView) {
-        this.informationSurgeryView = informationSurgeryView;
+    public ListSurgeriesComponent(ArrayList<ListInformationSurgeriesView> listInformationSurgeriesView) {
+        this.listInformationSurgeriesView = listInformationSurgeriesView;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ListSurgeriesComponent extends JComponent {
 
     private void addListSurgeriesInformation() {
         double yOneCoordinate = 40;
-        for (InformationSurgeryView eachInformationSurgery: informationSurgeryView) {
+        for (ListInformationSurgeriesView eachInformationSurgery: listInformationSurgeriesView) {
             graphics.drawString(Integer.toString(eachInformationSurgery.getSurgeryId()), 20, (float) yOneCoordinate);
             graphics.drawString(Integer.toString(eachInformationSurgery.getPatientId()), 120, (float) yOneCoordinate);
             graphics.drawString(Integer.toString(eachInformationSurgery.getSurgeonId()), 220, (float) yOneCoordinate);

@@ -17,6 +17,8 @@ public class SurgeryView {
         this.color = DEFAULT_COLOR;
     }
 
+
+
     public LocalDateTime getStartingTimeSurgery() {
         return startingTimeSurgery;
     }

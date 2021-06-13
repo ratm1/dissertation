@@ -19,7 +19,7 @@ public class SurgeryResource {
     private static final Long SINGLETON_TIME_TABLE_ID = 1L;
 
     @POST
-    @Path("{patientId}/{surgeonId}/{anesthesiaId}/{anesthetistId}/{surgeryTypeId}/{insuranceId}/{procedureId}/{duration}")
+    @Path("{patientId}/{surgeonId}/{anesthesiaId}/{anesthetistId}/{surgeryTypeId}/{procedureId}/{duration}")
     public Response add(@PathParam("patientId") Long patientId, @PathParam("surgeonId") Long surgeonId,
                         @PathParam("anesthesiaId") Long anesthesiaId,@PathParam("anesthetistId") Long anesthetistId,
                         @PathParam("surgeryTypeId") Long surgeryTypeId, @PathParam("procedureId") Long procedureId,

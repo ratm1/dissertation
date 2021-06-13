@@ -6,7 +6,7 @@ import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.StringTokenizer;
 
-public class InformationSurgeryView {
+public class ListInformationSurgeriesView {
     private int surgeryId;
     private int patientId;
     private int surgeonId;
@@ -15,8 +15,8 @@ public class InformationSurgeryView {
     private int duration;
 
 
-    public InformationSurgeryView(int surgeryId, int patientId, int surgeonId, String specialityName, String procedure,
-                                  int duration) {
+    public ListInformationSurgeriesView(int surgeryId, int patientId, int surgeonId, String specialityName, String procedure,
+                                        int duration) {
         this.surgeryId = surgeryId;
         this.patientId = patientId;
         this.surgeonId = surgeonId;
