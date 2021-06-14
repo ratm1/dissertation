@@ -1,5 +1,6 @@
 package org.standrews.schedulingsurgeries.rest;
 
+import org.standrews.schedulingsurgeries.domain.AnesthesiaType;
 import org.standrews.schedulingsurgeries.domain.Procedure;
 import org.standrews.schedulingsurgeries.domain.Speciality;
 
@@ -40,4 +41,17 @@ public class ProcedureResource {
     public List<Procedure> getProcedures(){
         return Procedure.listAll();
     }
+
+    @GET
+    @Path("{name}")
+    public Long getAnesthesiaTypeId(@PathParam("name") String name){
+        List<Procedure> procedures = Procedure.listAll();
+        for (Procedure procedure: procedures) {
+            if (procedure.getName().equals(name)) {
+                return procedure.getProcedureId();
+            }
+        }
+        return -1L;
+    }
+
 }

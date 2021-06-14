@@ -3,6 +3,7 @@ package org.standrews.schedulingsurgeries.rest;
 import org.standrews.schedulingsurgeries.domain.Procedure;
 import org.standrews.schedulingsurgeries.domain.Speciality;
 import org.standrews.schedulingsurgeries.domain.Surgeon;
+import org.standrews.schedulingsurgeries.domain.SurgeryType;
 
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
@@ -43,4 +44,18 @@ public class SurgeonResource {
     public List<Surgeon> getSurgeons(){
         return Surgeon.listAll();
     }
+
+    @GET
+    @Path("{surgeonId}")
+    public String getSpeciality(@PathParam("surgeonId") Long surgeonId){
+        List<Surgeon> surgeons = Surgeon.listAll();
+        for (Surgeon eachSurgeon: surgeons) {
+            if (eachSurgeon.getSurgeonId().equals(surgeonId)) {
+                return eachSurgeon.getSpeciality().getName();
+            }
+        }
+        return Response.status(Response.Status.NOT_FOUND).build().toString();
+    }
+
+
 }

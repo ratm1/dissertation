@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.IOException;
 
 public class AddSurgeryComponent extends JPanel {
@@ -34,8 +36,8 @@ public class AddSurgeryComponent extends JPanel {
     /**
      * Surgery type
      */
-    private JLabel surgeryTypeLabel;
-    private JComboBox surgeryTypeBox;
+    private JLabel surgeryTypeCodeLabel;
+    private JComboBox surgeryTypeCodeBox;
     /**
      * Procedure
      */
@@ -46,6 +48,11 @@ public class AddSurgeryComponent extends JPanel {
      */
     private JLabel durationLabel;
     private JTextField durationTextField;
+    /**
+     * Machine learning component
+     */
+    private JLabel neuralNetworksLabel;
+    private JCheckBox neuralNetworksBox;
     /**
      * Add surgery button
      */
@@ -98,9 +105,9 @@ public class AddSurgeryComponent extends JPanel {
         /**
          * Surgery type
          */
-        surgeryTypeLabel = new JLabel("Surgery type id ");
-        Integer surgeryTypes[] = requestHandler.getSurgeryTypes(); // REVIEW
-        surgeryTypeBox = new JComboBox(surgeryTypes);
+        surgeryTypeCodeLabel = new JLabel("Surgery type code ");
+        String surgeryTypesCode[] = requestHandler.getSurgeryTypeCodes(); // REVIEW
+        surgeryTypeCodeBox = new JComboBox(surgeryTypesCode);
         /**
          * Procedure - HERE
          */
@@ -112,6 +119,11 @@ public class AddSurgeryComponent extends JPanel {
          */
         durationLabel = new JLabel("Duration ");
         durationTextField = new JTextField(16);
+        /**
+         * Machine learning component
+         */
+        neuralNetworksLabel = new JLabel("Neural networks");
+        neuralNetworksBox = new JCheckBox();
         /**
          * Add surgery button
          */
@@ -176,10 +188,10 @@ public class AddSurgeryComponent extends JPanel {
         gridConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridConstraints.gridx = 0;
         gridConstraints.gridy = 16;
-        this.add(surgeryTypeLabel, gridConstraints);
+        this.add(surgeryTypeCodeLabel, gridConstraints);
         gridConstraints.gridx = 1;
         gridConstraints.gridy = 16;
-        this.add(surgeryTypeBox, gridConstraints);
+        this.add(surgeryTypeCodeBox, gridConstraints);
         /**
          * Procedure - HERE
          */
@@ -201,13 +213,23 @@ public class AddSurgeryComponent extends JPanel {
         gridConstraints.gridy = 24;
         this.add(durationTextField, gridConstraints);
         /**
+         * Neural networks checkbox
+         */
+        gridConstraints.fill = GridBagConstraints.HORIZONTAL;
+        gridConstraints.gridx = 0;
+        gridConstraints.gridy = 28;
+        this.add(neuralNetworksLabel, gridConstraints);
+        gridConstraints.gridx = 1;
+        gridConstraints.gridy = 28;
+        this.add(neuralNetworksBox, gridConstraints);
+
+        /**
          * Add surgery button
          */
         gridConstraints.fill = GridBagConstraints.HORIZONTAL;
         gridConstraints.gridx = 1;
-        gridConstraints.gridy = 28;
+        gridConstraints.gridy = 32;
         this.add(addSurgeryButton, gridConstraints);
-
     }
 
     public void setActionListener() {
@@ -215,15 +237,49 @@ public class AddSurgeryComponent extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Integer anesthesiaTypeId = requestHandler.getAnesthesiaTypeId(10);
-                    System.out.println("The anesthesia type id is: " + anesthesiaTypeId);
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
+                    Long surgeonId = Long.valueOf(surgeonTextField.getText());
+                    Integer anesthesiaTypeCode = (int) anesthesiaTypeBox.getSelectedItem();
+                    Long anesthetistId = Long.valueOf(anesthetistTextField.getText());
+                    String speciality = requestHandler.getSpeciality(surgeonId.intValue());
+                    String surgeryTypeCode = surgeryTypeCodeBox.getSelectedItem().toString();
+                    String procedureName = procedureBox.getSelectedItem().toString();
+                    Integer duration = 0;
+
+                    Long patientId = Long.valueOf(patientTextField.getText());
+                    Long anesthesiaId = requestHandler.getAnesthesiaTypeId(anesthesiaTypeCode);
+                    Long surgeryTypeId = requestHandler.getSurgeryTypeId(surgeryTypeCode);
+                    Long procedureId = requestHandler.getProcedureId(procedureName);
+
+                    if (neuralNetworksBox.isSelected()){
+                        System.out.println("THE CHECKBOX HAS BEEN SELECTED");
+                        duration = requestHandler.getDuration(surgeonId, anesthesiaTypeCode, anesthetistId, speciality,
+                                surgeryTypeCode, procedureName);
+                    } else {
+                        System.out.println("THE CHECKBOX HAS NOT BEEN SELECTED");
+                        duration = Integer.valueOf(durationTextField.getText());
+                    }
+                        requestHandler.postSurgery(patientId, surgeonId, anesthesiaId, anesthetistId, surgeryTypeId, procedureId, duration);
+                } catch (NumberFormatException | IOException exception) {
+                    String message = "Review that all fields are filled";
+                    JOptionPane.showMessageDialog(new JFrame(), message, "Error",
+                            JOptionPane.ERROR_MESSAGE);
+                    exception.printStackTrace();
                 }
-                //    System.out.println(patientsBox.getSelectedItem());
                }
             }
         );
-    }
 
+        neuralNetworksBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                  if (e.getStateChange() == ItemEvent.SELECTED) {
+                      durationTextField.setEditable(false);
+                      durationTextField.setText("");
+                  } else {
+                      durationTextField.setEditable(true);
+                  }
+             }
+            }
+        );
+    }
 }

@@ -13,7 +13,6 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class SurgeryTypeResource {
-    private static final Long SINGLETON_TIME_TABLE_ID = 1L;
     @POST
     @Path("{code}/{name}")
     public Response add(@PathParam("code") String code, @PathParam("name") String name) {
@@ -36,5 +35,17 @@ public class SurgeryTypeResource {
     @GET
     public List<SurgeryType> getSurgeryTypes(){
         return SurgeryType.listAll();
+    }
+
+    @GET
+    @Path("{code}")
+    public Long isPatientCreated(@PathParam("code") String code){
+        List<SurgeryType> surgeryTypes = SurgeryType.listAll();
+        for (SurgeryType surgeryType: surgeryTypes) {
+              if (surgeryType.getCode().equals(code)) {
+                   return surgeryType.getSurgeryTypeId();
+              }
+        }
+        return -1L;
     }
 }

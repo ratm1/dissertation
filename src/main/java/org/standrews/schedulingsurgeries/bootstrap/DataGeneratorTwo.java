@@ -46,6 +46,7 @@ public class DataGeneratorTwo {
          */
         List<SurgeryType> surgeryTypeList = new ArrayList<>();
         surgeryTypeList.add(new SurgeryType("E", "Elective"));
+        surgeryTypeList.add(new SurgeryType("A", "Ambulatory"));
         Surgery.persist(surgeryTypeList);
         /**
          * Anesthetist
@@ -76,7 +77,7 @@ public class DataGeneratorTwo {
         List<Procedure> procedures = new ArrayList<>();
         procedures.add(new Procedure(234, specialities.get(0), "Cesariana (feto unico)"));
         procedures.add(new Procedure(567, specialities.get(1), "Resseccao de Tumor de Partes Moles"));
-        procedures.add(new Procedure(891, specialities.get(2), "Descolamento Epifisario do Umero - Tratamento Cirurgico"));
+        procedures.add(new Procedure(891, specialities.get(2), "Palatoplastia Primária Em Paciente Com Anomalia Crânio E Bucomaxilofacial - Sus"));
         Procedure.persist(procedures);
         /**
          * Surgeons

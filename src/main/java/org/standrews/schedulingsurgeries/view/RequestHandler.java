@@ -4,11 +4,15 @@ import io.vertx.core.json.JsonArray;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import javax.swing.*;
+import javax.ws.rs.PathParam;
 import java.io.IOException;
 
 public class RequestHandler {
@@ -20,6 +24,7 @@ public class RequestHandler {
              request.addHeader("content-type", "application/json");
              CloseableHttpResponse response = httpClient.execute(request);
          } catch (Exception e) {
+             errorHttpRequest();
              e.printStackTrace();
          } finally {
              httpClient.close();
@@ -37,8 +42,8 @@ public class RequestHandler {
              JSONArray rooms = new JSONArray(responseJSON);
              numberOfRooms = rooms.length();
              return numberOfRooms;
-
          } catch (Exception e) {
+             errorHttpRequest();
              e.printStackTrace();
          } finally {
              httpClient.close();
@@ -58,6 +63,7 @@ public class RequestHandler {
             return responseJSON;
         }
         catch (Exception e) {
+            errorHttpRequest();
             e.printStackTrace();
         } finally {
             httpClient.close();
@@ -76,6 +82,26 @@ public class RequestHandler {
             return responseJSON;
         }
         catch (Exception e) {
+            errorHttpRequest();
+            e.printStackTrace();
+        } finally {
+            httpClient.close();
+        }
+        return responseJSON;
+    }
+
+    public String getSpeciality(Integer surgeonId) throws IOException {
+        String responseJSON = "";
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        try {
+            HttpGet request = new HttpGet("http://localhost:8080/surgeons/" + surgeonId);
+            request.addHeader("content-type", "application/json");
+            CloseableHttpResponse response = httpClient.execute(request);
+            responseJSON = EntityUtils.toString(response.getEntity(),  "UTF-8");
+            return responseJSON;
+        }
+        catch (Exception e) {
+            errorHttpRequest();
             e.printStackTrace();
         } finally {
             httpClient.close();
@@ -94,6 +120,7 @@ public class RequestHandler {
             return responseJSON;
         }
         catch (Exception e) {
+            errorHttpRequest();
             e.printStackTrace();
         } finally {
             httpClient.close();
@@ -112,6 +139,7 @@ public class RequestHandler {
             return responseJSON;
         }
         catch (Exception e) {
+            errorHttpRequest();
             e.printStackTrace();
         } finally {
             httpClient.close();
@@ -130,6 +158,7 @@ public class RequestHandler {
             return responseJSON;
         }
         catch (Exception e) {
+            errorHttpRequest();
             e.printStackTrace();
         } finally {
             httpClient.close();
@@ -137,22 +166,145 @@ public class RequestHandler {
         return responseJSON;
     }
 
-    public Integer getAnesthesiaTypeId(Integer code) throws IOException {
-        Integer responseJSON = -1;
+    public String[] getSurgeryTypeCodes() throws IOException {
+        String[] responseJSON = new String[0];
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         try {
-            HttpGet request = new HttpGet("http://localhost:8080/anesthesiatypes/" + code);
+            HttpGet request = new HttpGet("http://localhost:8080/surgerytypes");
             request.addHeader("content-type", "application/json");
             CloseableHttpResponse response = httpClient.execute(request);
-            responseJSON = Integer.parseInt(EntityUtils.toString(response.getEntity(),  "UTF-8"));
+            responseJSON = parseJsonSurgeryTypeCodes(EntityUtils.toString(response.getEntity(),  "UTF-8"));
             return responseJSON;
         }
         catch (Exception e) {
+            errorHttpRequest();
             e.printStackTrace();
         } finally {
             httpClient.close();
         }
         return responseJSON;
+    }
+
+    public Integer getDuration(Long surgeonId, Integer anesthesiaTypeCode, Long anesthetistId, String speciality,
+                               String surgeryType, String surgeryName) throws IOException {
+        Integer durationPrediction = -1;
+        org.json.simple.JSONArray jsonArray = new org.json.simple.JSONArray();
+        org.json.simple.JSONObject surgery = new org.json.simple.JSONObject();
+
+        surgery.put("surgeon_id", surgeonId);
+        surgery.put("anesthesia_type", anesthesiaTypeCode);
+        surgery.put("anesthesist_id", anesthetistId);
+        surgery.put("speciality", speciality);
+        surgery.put("surgery_type", surgeryType);
+        surgery.put("surgery_name", surgeryName);
+        jsonArray.add(surgery);
+
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        try {
+            HttpPost request = new HttpPost("http://localhost:12345/prediction");
+            StringEntity params = new StringEntity(jsonArray.toString());
+            request.addHeader("content-type", "application/json");
+            request.setEntity(params);
+            CloseableHttpResponse response = httpClient.execute(request);
+            String responseJSON = EntityUtils.toString(response.getEntity());
+            JSONObject newVersionJson = new JSONObject(responseJSON);
+            durationPrediction = Math.round(newVersionJson.getFloat("prediction"));
+            return durationPrediction ;
+        } catch (Exception ex) {
+            errorHttpRequest();
+            ex.printStackTrace();
+        } finally {
+            httpClient.close();
+        }
+        return  -1;
+    }
+
+    public Long getAnesthesiaTypeId(Integer code) throws IOException {
+        Long responseJSON = -1L;
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        try {
+            HttpGet request = new HttpGet("http://localhost:8080/anesthesiatypes/" + code);
+            request.addHeader("content-type", "application/json");
+            CloseableHttpResponse response = httpClient.execute(request);
+            responseJSON = Long.valueOf(EntityUtils.toString(response.getEntity(),  "UTF-8"));
+            return responseJSON;
+        }
+        catch (Exception e) {
+            errorHttpRequest();
+            e.printStackTrace();
+        } finally {
+            httpClient.close();
+        }
+        return responseJSON;
+    }
+
+    public Long getProcedureId(String name) throws IOException {
+        Long responseJSON = -1L;
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        try {
+            System.out.println(parseNumberOfWords(name));
+            HttpGet request = new HttpGet("http://localhost:8080/procedures/" + parseNumberOfWords(name));
+            request.addHeader("content-type", "application/json");
+            CloseableHttpResponse response = httpClient.execute(request);
+            responseJSON = Long.valueOf(EntityUtils.toString(response.getEntity(),  "UTF-8"));
+            return responseJSON;
+        }
+        catch (Exception e) {
+            errorHttpRequest();
+            e.printStackTrace();
+        } finally {
+            httpClient.close();
+        }
+        return responseJSON;
+    }
+
+    public Long getSurgeryTypeId(String name) throws IOException {
+        Long responseJSON = -1L;
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        try {
+            HttpGet request = new HttpGet("http://localhost:8080/surgerytypes/" + name);
+            request.addHeader("content-type", "application/json");
+            CloseableHttpResponse response = httpClient.execute(request);
+            responseJSON = Long.valueOf(EntityUtils.toString(response.getEntity(),  "UTF-8"));
+            return responseJSON;
+        }
+        catch (Exception e) {
+            errorHttpRequest();
+            e.printStackTrace();
+        } finally {
+            httpClient.close();
+        }
+        return responseJSON;
+    }
+
+    public void postSurgery(Long patientId, Long surgeonId, Long anesthesiaId, Long anesthetistId,
+                            Long surgeryTypeId, Long procedureId, Integer duration) throws IOException {
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        try {
+            HttpPost request = new HttpPost("http://localhost:8080/surgeries/" + patientId + "/" + surgeonId + "/" + anesthesiaId + "/"
+                                            + anesthetistId + "/" + surgeryTypeId + "/" + procedureId + "/" + duration);
+            request.addHeader("content-type", "application/json");
+            CloseableHttpResponse response = httpClient.execute(request);
+        } catch (Exception e) {
+            errorHttpRequest();
+            e.printStackTrace();
+        } finally {
+            httpClient.close();
+        }
+    }
+
+    public String parseNumberOfWords(String name) {
+          String[] words = name.split("\\s");
+          String nameWithSpaces = "";
+          if (words.length == 1) {
+              nameWithSpaces = words[0];
+              return nameWithSpaces;
+          }
+          for (int wordCounter = 0; wordCounter < words.length - 1; wordCounter++) {
+              nameWithSpaces = nameWithSpaces + words[wordCounter] + "%20";
+          }
+              nameWithSpaces = nameWithSpaces + words[words.length - 1];
+          return nameWithSpaces;
     }
 
     public String[] parseJsonProcedures(String response) {
@@ -183,6 +335,22 @@ public class RequestHandler {
                arrayAnesthesiaCodes[counter] = anesthesiaType.getInt("code");
            }
            return arrayAnesthesiaCodes;
+    }
+
+    public String[] parseJsonSurgeryTypeCodes(String response) {
+        JSONArray codes = new JSONArray(response);
+        String[] surgeryTypeCodes = new String[codes.length()];
+        for (int counter = 0; counter < codes.length(); counter++) {
+            JSONObject procedure = codes.getJSONObject(counter);
+            surgeryTypeCodes[counter] = procedure.getString("code");
+        }
+        return surgeryTypeCodes;
+    }
+
+    public void errorHttpRequest(){
+        String message = "Error with the HTTP request. " + "\n" + "Review Quarkus connectivity.";
+        JOptionPane.showMessageDialog(new JFrame(), message, "Error",
+                JOptionPane.ERROR_MESSAGE);
     }
 
     /*
