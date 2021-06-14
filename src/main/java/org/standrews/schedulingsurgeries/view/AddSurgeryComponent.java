@@ -17,12 +17,12 @@ public class AddSurgeryComponent extends JPanel {
      * Patient id
      */
     private JLabel patientLabel;
-    private JTextField patientTextField;
+    private JComboBox patientBox;
     /**
      * Surgeon id
      */
     private JLabel surgeonLabel;
-    private JTextField surgeonTextField;
+    private JComboBox surgeonBox;
     /**
      * Anesthesia type
      */
@@ -32,7 +32,7 @@ public class AddSurgeryComponent extends JPanel {
      * Anesthetist
      */
     private JLabel anesthetistLabel;
-    private JTextField anesthetistTextField;
+    private JComboBox anesthetistBox;
     /**
      * Surgery type
      */
@@ -84,24 +84,27 @@ public class AddSurgeryComponent extends JPanel {
         /**
          * Patient id
          */
-        patientLabel = new JLabel("Patient id ");
-        patientTextField = new JTextField(16);
+        patientLabel = new JLabel("Patient id "); //REVIEW QUERY
+        Integer patientIds[] = requestHandler.getPatientIds();
+        patientBox = new JComboBox(patientIds);
         /**
          * Surgeon id
          */
-        surgeonLabel = new JLabel("Surgeon id ");
-        surgeonTextField = new JTextField(16);
+        surgeonLabel = new JLabel("Surgeon id "); // REVIEW QUERY
+        Integer surgeonIds[] = requestHandler.getSurgeonIds();
+        surgeonBox = new JComboBox(surgeonIds);
         /**
          * Anesthesia type
          */
         anesthesiaTypeLabel = new JLabel("Anesthesia Type ");
-        Integer anesthesiaTypes[] = requestHandler.getAnesthesiaTypes(); // REVIEW
+        Integer anesthesiaTypes[] = requestHandler.getAnesthesiaTypes();
         anesthesiaTypeBox = new JComboBox(anesthesiaTypes);
         /**
          * Anesthetist
          */
-        anesthetistLabel = new JLabel("Anesthetist id ");
-        anesthetistTextField = new JTextField(16);
+        anesthetistLabel = new JLabel("Anesthetist id "); // REVIEW QUERY
+        Integer anesthetistIds[] = requestHandler.getAnesthetistIds();
+        anesthetistBox = new JComboBox(anesthetistIds);
         /**
          * Surgery type
          */
@@ -151,7 +154,7 @@ public class AddSurgeryComponent extends JPanel {
         this.add(patientLabel, gridConstraints);
         gridConstraints.gridx = 1;
         gridConstraints.gridy = 2;
-        this.add(patientTextField, gridConstraints);
+        this.add(patientBox, gridConstraints);
         /**
          * Surgeon id
          */
@@ -161,7 +164,7 @@ public class AddSurgeryComponent extends JPanel {
         this.add(surgeonLabel, gridConstraints);
         gridConstraints.gridx = 1;
         gridConstraints.gridy = 4;
-        this.add(surgeonTextField, gridConstraints);
+        this.add(surgeonBox, gridConstraints);
         /**
          * Anesthesia type
          */
@@ -181,7 +184,7 @@ public class AddSurgeryComponent extends JPanel {
         this.add(anesthetistLabel, gridConstraints);
         gridConstraints.gridx = 1;
         gridConstraints.gridy = 12;
-        this.add(anesthetistTextField, gridConstraints);
+        this.add(anesthetistBox, gridConstraints);
         /**
          * Surgery type
          */
@@ -237,15 +240,15 @@ public class AddSurgeryComponent extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    Long surgeonId = Long.valueOf(surgeonTextField.getText());
+                    Long surgeonId = Long.valueOf(surgeonBox.getSelectedItem().toString());
                     Integer anesthesiaTypeCode = (int) anesthesiaTypeBox.getSelectedItem();
-                    Long anesthetistId = Long.valueOf(anesthetistTextField.getText());
+                    Long anesthetistId = Long.valueOf(anesthetistBox.getSelectedItem().toString());
                     String speciality = requestHandler.getSpeciality(surgeonId.intValue());
                     String surgeryTypeCode = surgeryTypeCodeBox.getSelectedItem().toString();
                     String procedureName = procedureBox.getSelectedItem().toString();
                     Integer duration = 0;
 
-                    Long patientId = Long.valueOf(patientTextField.getText());
+                    Long patientId = Long.valueOf(patientBox.getSelectedItem().toString());
                     Long anesthesiaId = requestHandler.getAnesthesiaTypeId(anesthesiaTypeCode);
                     Long surgeryTypeId = requestHandler.getSurgeryTypeId(surgeryTypeCode);
                     Long procedureId = requestHandler.getProcedureId(procedureName);

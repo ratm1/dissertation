@@ -150,7 +150,7 @@ public class ScheduleView {
                                       (int) values.get(1), values.get(2).toString(), values.get(3).toString(), (int) values.get(4)));
         }
         listSurgeriesComponent = new ListSurgeriesComponent(listInformationSurgeriesView);
-        listSurgeriesComponent.setPreferredSize(new Dimension(1000, 3000));
+        listSurgeriesComponent.setPreferredSize(new Dimension(1200, 3000));
         scrollPanelSurgeries = new JScrollPane(listSurgeriesComponent);
 
         mainFrame.add(scrollPanelSurgeries);

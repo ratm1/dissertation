@@ -109,6 +109,63 @@ public class RequestHandler {
         return responseJSON;
     }
 
+    public Integer[] getPatientIds() throws IOException {
+        Integer[] responseJSON = new Integer[0];
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        try {
+            HttpGet request = new HttpGet("http://localhost:8080/patients");
+            request.addHeader("content-type", "application/json");
+            CloseableHttpResponse response = httpClient.execute(request);
+            responseJSON = parseJsonPatientIds(EntityUtils.toString(response.getEntity(),  "UTF-8"));
+            return responseJSON;
+        }
+        catch (Exception e) {
+            errorHttpRequest();
+            e.printStackTrace();
+        } finally {
+            httpClient.close();
+        }
+        return responseJSON;
+    }
+
+    public Integer[] getSurgeonIds() throws IOException {
+        Integer[] responseJSON = new Integer[0];
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        try {
+            HttpGet request = new HttpGet("http://localhost:8080/surgeons");
+            request.addHeader("content-type", "application/json");
+            CloseableHttpResponse response = httpClient.execute(request);
+            responseJSON = parseJsonSurgeonIds(EntityUtils.toString(response.getEntity(),  "UTF-8"));
+            return responseJSON;
+        }
+        catch (Exception e) {
+            errorHttpRequest();
+            e.printStackTrace();
+        } finally {
+            httpClient.close();
+        }
+        return responseJSON;
+    }
+
+    public Integer[] getAnesthetistIds() throws IOException {
+        Integer[] responseJSON = new Integer[0];
+        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
+        try {
+            HttpGet request = new HttpGet("http://localhost:8080/anesthetists");
+            request.addHeader("content-type", "application/json");
+            CloseableHttpResponse response = httpClient.execute(request);
+            responseJSON = parseJsonAnesthetistIds(EntityUtils.toString(response.getEntity(),  "UTF-8"));
+            return responseJSON;
+        }
+        catch (Exception e) {
+            errorHttpRequest();
+            e.printStackTrace();
+        } finally {
+            httpClient.close();
+        }
+        return responseJSON;
+    }
+
     public Integer[] getAnesthesiaTypes() throws IOException {
         Integer[] responseJSON = new Integer[0];
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
@@ -315,6 +372,36 @@ public class RequestHandler {
             procedureNames[counter] = procedure.getString("name");
         }
         return procedureNames;
+    }
+
+    public Integer[] parseJsonPatientIds(String response) {
+        JSONArray patients = new JSONArray(response);
+        Integer[] patientIds = new Integer[patients.length()];
+        for (int counter = 0; counter < patients.length(); counter++) {
+            JSONObject patient = patients.getJSONObject(counter);
+            patientIds[counter] = patient.getInt("patientId");
+        }
+        return patientIds;
+    }
+
+    public Integer[] parseJsonSurgeonIds(String response) {
+        JSONArray surgeons = new JSONArray(response);
+        Integer[] surgeonIds = new Integer[surgeons.length()];
+        for (int counter = 0; counter < surgeons.length(); counter++) {
+            JSONObject surgeon = surgeons.getJSONObject(counter);
+            surgeonIds[counter] = surgeon.getInt("surgeonId");
+        }
+        return surgeonIds;
+    }
+
+    public Integer[] parseJsonAnesthetistIds(String response) {
+        JSONArray anesthetists = new JSONArray(response);
+        Integer[] anesthetistIds = new Integer[anesthetists.length()];
+        for (int counter = 0; counter < anesthetists.length(); counter++) {
+            JSONObject anesthetist = anesthetists.getJSONObject(counter);
+            anesthetistIds[counter] = anesthetist.getInt("anesthetistId");
+        }
+        return anesthetistIds;
     }
 
     public Integer[] parseJsonSurgeryTypes(String response) {

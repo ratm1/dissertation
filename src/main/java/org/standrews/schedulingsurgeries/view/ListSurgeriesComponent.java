@@ -30,11 +30,14 @@ public class ListSurgeriesComponent extends JComponent {
             xCoordinate = xCoordinate + 105;
         }
             xCoordinate = xCoordinate + 70;
-        for (int label = 4; label < labels.length; label++) {
+        for (int label = 4; label < labels.length - 1; label++) {
             String text = labels[label];
             graphics.drawString(text, xCoordinate, yCoordinate);
             xCoordinate = xCoordinate + 350;
         }
+            String text = labels[labels.length - 1];
+            xCoordinate = xCoordinate + 150;
+            graphics.drawString(text, xCoordinate, yCoordinate);
     }
 
     private void addListSurgeriesInformation() {
@@ -47,7 +50,7 @@ public class ListSurgeriesComponent extends JComponent {
             System.out.println("Part of add list surgeries");
             System.out.println(eachInformationSurgery.getProcedure());
             graphics.drawString(eachInformationSurgery.getProcedure().trim(), 500, (float) yOneCoordinate);
-            graphics.drawString(Integer.toString(eachInformationSurgery.getDuration()), 860, (float) yOneCoordinate);
+            graphics.drawString(Integer.toString(eachInformationSurgery.getDuration()), 1000, (float) yOneCoordinate);
             yOneCoordinate = yOneCoordinate + 60;
         }
     }

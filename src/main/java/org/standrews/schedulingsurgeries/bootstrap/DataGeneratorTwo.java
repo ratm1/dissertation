@@ -62,7 +62,6 @@ public class DataGeneratorTwo {
         anesthesiaTypes.add(new AnesthesiaType(10));
         anesthesiaTypes.add(new AnesthesiaType(16));
         AnesthesiaType.persist(anesthesiaTypes);
-
         /**
          * Specialities
          */
