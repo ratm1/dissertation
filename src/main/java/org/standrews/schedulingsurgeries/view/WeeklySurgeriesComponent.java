@@ -18,7 +18,7 @@ public class WeeklySurgeriesComponent extends JComponent {
      */
     private ArrayList<SurgeryView> surgeryViews;
     private static final LocalDateTime START_WEEK = LocalDateTime.of(2021,6,14,7,30);
-    private static final LocalDateTime FINAL_WEEK = LocalDateTime.of(2021,6,18,20,00);
+    private static final LocalDateTime FINAL_WEEK = LocalDateTime.of(2021,6,18,20,30);
     private LocalDate openingDateOR;
     private LocalDate closingDateOR;
     private LocalTime openingTimeOR;

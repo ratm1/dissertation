@@ -3,14 +3,13 @@ package org.standrews.schedulingsurgeries.domain;
 import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import org.optaplanner.core.api.domain.lookup.PlanningId;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class Procedure extends PanacheEntityBase {
     @PlanningId
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long procedureId;
     @ManyToOne
     private Speciality speciality;
@@ -18,8 +17,7 @@ public class Procedure extends PanacheEntityBase {
 
     public Procedure(){}
 
-    public Procedure(long procedureId, Speciality speciality, String name) {
-        this.procedureId = procedureId;
+    public Procedure(String name, Speciality speciality) {
         this.speciality = speciality;
         this.name = name;
     }

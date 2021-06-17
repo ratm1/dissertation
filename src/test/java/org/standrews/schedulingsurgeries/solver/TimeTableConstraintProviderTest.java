@@ -49,9 +49,12 @@ public class TimeTableConstraintProviderTest {
         anesthetists.add(new Anesthetist(456, "NA", "NA"));
 
         List<Procedure> procedures = new ArrayList<>();
+        /*
         procedures.add(new Procedure(234, specialities.get(0), "Cesariana (feto unico)"));
         procedures.add(new Procedure(567, specialities.get(1), "Resseccao de Tumor de Partes Moles"));
         procedures.add(new Procedure(891, specialities.get(2), "Descolamento Epifisario do Umero - Tratamento Cirurgico"));
+
+         */
 
         List <OperatingRoom> operatingRooms = new ArrayList<>();
         /**

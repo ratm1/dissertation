@@ -21,7 +21,7 @@ public class ProcedureResource {
     public Response add(@PathParam("procedureId") Long procedureId, @PathParam("specialityId") Long specialityId, @PathParam("name") String name) {
         List<Speciality> specialities = Speciality.listAll();
         Speciality speciality = specialities.get(specialityId.intValue() - 1);
-        Procedure procedure = new Procedure(procedureId, speciality,name);
+        Procedure procedure = new Procedure(name, speciality);
         Procedure.persist(procedure);
         return Response.accepted(procedure).build();
     }
