@@ -14,7 +14,11 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class InsuranceResource {
-    private static final Long SINGLETON_TIME_TABLE_ID = 1L;
+    /**
+     * VERIFICATION CORRECT
+     * @param name
+     * @return
+     */
 
     @POST
     @Path("{name}")

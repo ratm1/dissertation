@@ -15,9 +15,17 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class SurgeryResource {
-
-    private static final Long SINGLETON_TIME_TABLE_ID = 1L;
-
+    /**
+     * REVIEW *************
+     * @param patientId
+     * @param surgeonId
+     * @param anesthesiaId
+     * @param anesthetistId
+     * @param surgeryTypeId
+     * @param procedureId
+     * @param duration
+     * @return
+     */
     @POST
     @Path("{patientId}/{surgeonId}/{anesthesiaId}/{anesthetistId}/{surgeryTypeId}/{procedureId}/{duration}")
     public Response add(@PathParam("patientId") Long patientId, @PathParam("surgeonId") Long surgeonId,

@@ -9,12 +9,6 @@ import javax.inject.Singleton;
 
 @Singleton
 public class Customizer implements ObjectMapperCustomizer {
-    /*
-    public void customize(ObjectMapper objectMapper) {
-        objectMapper.registerModule(new JodaModule());
-    }
-     */
-
     public void customize(ObjectMapper objectMapper) {
         objectMapper.registerModule(new Jdk8Module());
     }

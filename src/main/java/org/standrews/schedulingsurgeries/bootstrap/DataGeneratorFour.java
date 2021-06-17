@@ -18,30 +18,11 @@ public class DataGeneratorFour {
          * ALL THESE DATA IS FOR THE MONTH OF NOVEMBER
          */
 
-
-        /**
-         * WEEK 2
-         * 2019-11-11 07:30:00
-         * 2019-11-15 20:00:00
-         */
-
-        /**
-         * WEEK 3
-         * 2019-11-18 07:30:00
-         * 2019-11-22 20:00:00
-         */
-
-        /**
-         * WEEK 4
-         * 2019-11-25 07:30:00
-         * 2019-11-29 20:00:00
-         */
-
         /**
          * Opening and closing room
          */
-        LocalDateTime openingOperatingRoom = LocalDateTime.of(2021, 06, 14, 7, 30);
-        LocalDateTime closingOperationRoom = LocalDateTime.of(2021, 06, 18, 20, 30);
+        LocalDateTime openingOperatingRoom = LocalDateTime.of(2019, 11, 4, 7, 30);
+        LocalDateTime closingOperationRoom = LocalDateTime.of(2019, 11, 8, 20, 30);
         /**
          * FIX THIS: REVIEW TO MAKE A POST REQUEST FROM THE UI
          */
@@ -319,7 +300,7 @@ public class DataGeneratorFour {
         procedures.add(new Procedure("Reconstrucao Ligamentar Intra-articular do Joelho (cruzado Anterior)",specialities.get(8)));
         procedures.add(new Procedure("Timpanotomia Para Tubo de Ventilacao - Bilateral",specialities.get(19)));
         procedures.add(new Procedure("Rtu de Prostata",specialities.get(4)));
-        procedures.add(new Procedure("Ressutura de Parede Abdominal",specialities.get(20)));
+        procedures.add(new Procedure("Ressutura de Parede Abdominal",specialities.get(17)));
         procedures.add(new Procedure("Revisao Cirurgica de Protese de Ombro",specialities.get(8)));
         procedures.add(new Procedure("Varizes Ou Safenectomia Unilateral",specialities.get(9)));
         procedures.add(new Procedure("Amputacao de Perna",specialities.get(9)));
@@ -334,22 +315,11 @@ public class DataGeneratorFour {
          * 2019-11-08 20:00:00
          */
         List<Surgeon> surgeons = new ArrayList<>();
-        surgeons.add(new Surgeon(144,"NA","NA",specialities.get(0)));
-        surgeons.add(new Surgeon(194431,"NA","NA",specialities.get(1)));
         surgeons.add(new Surgeon(117,"NA","NA",specialities.get(1)));
-        surgeons.add(new Surgeon(117,"NA","NA",specialities.get(2)));
-        surgeons.add(new Surgeon(134,"NA","NA",specialities.get(2)));
-        surgeons.add(new Surgeon(144,"NA","NA",specialities.get(2)));
         surgeons.add(new Surgeon(134,"NA","NA",specialities.get(2)));
         surgeons.add(new Surgeon(144,"NA","NA",specialities.get(3)));
-        surgeons.add(new Surgeon(104,"NA","NA",specialities.get(2)));
-        surgeons.add(new Surgeon(194431,"NA","NA",specialities.get(1)));
-        surgeons.add(new Surgeon(144,"NA","NA",specialities.get(2)));
         surgeons.add(new Surgeon(194431,"NA","NA",specialities.get(2)));
         surgeons.add(new Surgeon(130,"NA","NA",specialities.get(4)));
-        surgeons.add(new Surgeon(194431,"NA","NA",specialities.get(1)));
-        surgeons.add(new Surgeon(144,"NA","NA",specialities.get(2)));
-        surgeons.add(new Surgeon(117,"NA","NA",specialities.get(1)));
         surgeons.add(new Surgeon(67408,"NA","NA",specialities.get(2)));
         surgeons.add(new Surgeon(620486,"NA","NA",specialities.get(5)));
         surgeons.add(new Surgeon(723915,"NA","NA",specialities.get(6)));
@@ -357,85 +327,35 @@ public class DataGeneratorFour {
         surgeons.add(new Surgeon(104,"NA","NA",specialities.get(7)));
         surgeons.add(new Surgeon(224,"NA","NA",specialities.get(5)));
         surgeons.add(new Surgeon(878,"NA","NA",specialities.get(8)));
-        surgeons.add(new Surgeon(130,"NA","NA",specialities.get(4)));
-        surgeons.add(new Surgeon(194431,"NA","NA",specialities.get(1)));
-        surgeons.add(new Surgeon(194431,"NA","NA",specialities.get(1)));
         surgeons.add(new Surgeon(501222,"NA","NA",specialities.get(3)));
-        surgeons.add(new Surgeon(130,"NA","NA",specialities.get(4)));
-        surgeons.add(new Surgeon(130,"NA","NA",specialities.get(4)));
         surgeons.add(new Surgeon(140,"NA","NA",specialities.get(9)));
-        surgeons.add(new Surgeon(96922,"NA","NA",specialities.get(5)));
         surgeons.add(new Surgeon(736743,"NA","NA",specialities.get(2)));
         surgeons.add(new Surgeon(844768,"NA","NA",specialities.get(8)));
         surgeons.add(new Surgeon(133,"NA","NA",specialities.get(4)));
-        surgeons.add(new Surgeon(326682,"NA","NA",specialities.get(2)));
-        surgeons.add(new Surgeon(736743,"NA","NA",specialities.get(2)));
-        surgeons.add(new Surgeon(133,"NA","NA",specialities.get(4)));
-        surgeons.add(new Surgeon(501222,"NA","NA",specialities.get(10)));
-        surgeons.add(new Surgeon(133,"NA","NA",specialities.get(4)));
-        surgeons.add(new Surgeon(501222,"NA","NA",specialities.get(10)));
         surgeons.add(new Surgeon(140772,"NA","NA",specialities.get(8)));
-        surgeons.add(new Surgeon(501222,"NA","NA",specialities.get(10)));
         surgeons.add(new Surgeon(94617,"NA","NA",specialities.get(2)));
-        surgeons.add(new Surgeon(501222,"NA","NA",specialities.get(10)));
-        surgeons.add(new Surgeon(194431,"NA","NA",specialities.get(1)));
-        surgeons.add(new Surgeon(431032,"NA","NA",specialities.get(6)));
-        surgeons.add(new Surgeon(104,"NA","NA",specialities.get(2)));
-        surgeons.add(new Surgeon(96922,"NA","NA",specialities.get(1)));
-        surgeons.add(new Surgeon(117,"NA","NA",specialities.get(1)));
-        surgeons.add(new Surgeon(104,"NA","NA",specialities.get(2)));
-        surgeons.add(new Surgeon(194431,"NA","NA",specialities.get(1)));
-        surgeons.add(new Surgeon(117,"NA","NA",specialities.get(1)));
         surgeons.add(new Surgeon(161,"NA","NA",specialities.get(11)));
-        surgeons.add(new Surgeon(117,"NA","NA",specialities.get(1)));
-        surgeons.add(new Surgeon(720344,"NA","NA",specialities.get(12)));
         surgeons.add(new Surgeon(720344,"NA","NA",specialities.get(9)));
         surgeons.add(new Surgeon(192721,"NA","NA",specialities.get(7)));
-        surgeons.add(new Surgeon(194431,"NA","NA",specialities.get(2)));
         surgeons.add(new Surgeon(83736,"NA","NA",specialities.get(11)));
         surgeons.add(new Surgeon(326682,"NA","NA",specialities.get(7)));
-        surgeons.add(new Surgeon(326682,"NA","NA",specialities.get(7)));
-        surgeons.add(new Surgeon(194431,"NA","NA",specialities.get(1)));
         surgeons.add(new Surgeon(209891,"NA","NA",specialities.get(8)));
         surgeons.add(new Surgeon(162,"NA","NA",specialities.get(13)));
         surgeons.add(new Surgeon(185,"NA","NA",specialities.get(14)));
-        surgeons.add(new Surgeon(720344,"NA","NA",specialities.get(9)));
-        surgeons.add(new Surgeon(67408,"NA","NA",specialities.get(2)));
         surgeons.add(new Surgeon(115,"NA","NA",specialities.get(6)));
         surgeons.add(new Surgeon(96922,"NA","NA",specialities.get(2)));
         surgeons.add(new Surgeon(137,"NA","NA",specialities.get(11)));
         surgeons.add(new Surgeon(209,"NA","NA",specialities.get(6)));
-        surgeons.add(new Surgeon(133,"NA","NA",specialities.get(4)));
-        surgeons.add(new Surgeon(134,"NA","NA",specialities.get(2)));
-        surgeons.add(new Surgeon(83736,"NA","NA",specialities.get(11)));
         surgeons.add(new Surgeon(760843,"NA","NA",specialities.get(2)));
-        surgeons.add(new Surgeon(134,"NA","NA",specialities.get(2)));
         surgeons.add(new Surgeon(215751,"NA","NA",specialities.get(2)));
         surgeons.add(new Surgeon(930624,"NA","NA",specialities.get(5)));
-        surgeons.add(new Surgeon(720344,"NA","NA",specialities.get(14)));
-        surgeons.add(new Surgeon(130,"NA","NA",specialities.get(4)));
-        surgeons.add(new Surgeon(94617,"NA","NA",specialities.get(2)));
-        surgeons.add(new Surgeon(130,"NA","NA",specialities.get(4)));
         surgeons.add(new Surgeon(920390,"NA","NA",specialities.get(7)));
-        surgeons.add(new Surgeon(920390,"NA","NA",specialities.get(7)));
-        surgeons.add(new Surgeon(224,"NA","NA",specialities.get(15)));
         surgeons.add(new Surgeon(171283,"NA","NA",specialities.get(8)));
-        surgeons.add(new Surgeon(431032,"NA","NA",specialities.get(6)));
         surgeons.add(new Surgeon(431032,"NA","NA",specialities.get(11)));
-        surgeons.add(new Surgeon(162,"NA","NA",specialities.get(13)));
-        surgeons.add(new Surgeon(117,"NA","NA",specialities.get(1)));
-        surgeons.add(new Surgeon(878,"NA","NA",specialities.get(8)));
         surgeons.add(new Surgeon(212991,"NA","NA",specialities.get(11)));
-        surgeons.add(new Surgeon(133,"NA","NA",specialities.get(4)));
         surgeons.add(new Surgeon(766723,"NA","NA",specialities.get(16)));
-        surgeons.add(new Surgeon(133,"NA","NA",specialities.get(4)));
         surgeons.add(new Surgeon(1033,"NA","NA",specialities.get(17)));
-        surgeons.add(new Surgeon(140772,"NA","NA",specialities.get(8)));
-        surgeons.add(new Surgeon(133,"NA","NA",specialities.get(4)));
-        surgeons.add(new Surgeon(878,"NA","NA",specialities.get(8)));
-        surgeons.add(new Surgeon(140,"NA","NA",specialities.get(9)));
         surgeons.add(new Surgeon(308562,"NA","NA",specialities.get(9)));
-        surgeons.add(new Surgeon(720344,"NA","NA",specialities.get(12)));
         surgeons.add(new Surgeon(686289,"NA","NA",specialities.get(11)));
         Surgeon.persist(surgeons);
         /**
@@ -446,22 +366,45 @@ public class DataGeneratorFour {
         operatingRooms.add(new OperatingRoom("Centro Cirúrgico Sala 4 4", times.get(0)));
         operatingRooms.add(new OperatingRoom("Centro Cirúrgico Sala 3", times.get(0)));
         operatingRooms.add(new OperatingRoom("Centro Cirúrgico Sala 1", times.get(0)));
-
         operatingRooms.add(new OperatingRoom("Centro Cirúrgico Sala 5", times.get(0)));
         operatingRooms.add(new OperatingRoom("Centro Cirúrgico Sala 2", times.get(0)));
         operatingRooms.add(new OperatingRoom("Hemodinâmica Sala Hemod", times.get(0)));
         operatingRooms.add(new OperatingRoom("Centro Cirúrgico Ambulatorial  Sala 3 03", times.get(0)));
-
         operatingRooms.add(new OperatingRoom("Centro Cirúrgico Ambulatorial  Sala 1 01", times.get(0)));
         operatingRooms.add(new OperatingRoom("Hemodinâmica 1", times.get(0)));
         OperatingRoom.persist(operatingRooms);
+
         /**
          * This part is for the surgeries in a weekly basis
          */
         List <Surgery> surgeries = new ArrayList<>();
+        /**
+         * WEEK 1
+         * 2019-11-04 07:30:00
+         * 2019-11-08 20:00:00
+         */
         surgeries.add(new Surgery(patients.get(0), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(0),  50));
         surgeries.add(new Surgery(patients.get(1), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), procedures.get(1),  45));
         surgeries.add(new Surgery(patients.get(1), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(2),  65));
+        /**
+         * WEEK 2
+         * 2019-11-11 07:30:00
+         * 2019-11-15 20:00:00
+         */
+
+        /**
+         * WEEK 3
+         * 2019-11-18 07:30:00
+         * 2019-11-22 20:00:00
+         */
+
+        /**
+         * WEEK 4
+         * 2019-11-25 07:30:00
+         * 2019-11-29 20:00:00
+         */
+
+
         Surgery.persist(surgeries);
     }
 }

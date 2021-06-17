@@ -15,10 +15,15 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class ProcedureResource {
-    private static final Long SINGLETON_TIME_TABLE_ID = 1L;
+    /**
+     * VERIFICATION CORRECT
+     * @param name
+     * @param specialityId
+     * @return
+     */
     @POST
-    @Path("{procedureId}/{specialityId}/{name}")
-    public Response add(@PathParam("procedureId") Long procedureId, @PathParam("specialityId") Long specialityId, @PathParam("name") String name) {
+    @Path("{name}/{specialityId}")
+    public Response add(@PathParam("name") String name, @PathParam("specialityId") Long specialityId) {
         List<Speciality> specialities = Speciality.listAll();
         Speciality speciality = specialities.get(specialityId.intValue() - 1);
         Procedure procedure = new Procedure(name, speciality);

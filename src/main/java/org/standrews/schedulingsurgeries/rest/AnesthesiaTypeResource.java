@@ -13,7 +13,9 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class AnesthesiaTypeResource {
-    private static final Long SINGLETON_TIME_TABLE_ID = 1L;
+    /**
+     * VERIFICATION CORRECT
+     */
 
     @POST
     @Path("{code}")

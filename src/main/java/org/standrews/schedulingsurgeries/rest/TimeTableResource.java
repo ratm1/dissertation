@@ -30,17 +30,6 @@ public class TimeTableResource {
     ScoreManager<TimeTable, HardSoftScore> scoreManager;
     SolverJob<TimeTable, Long> solverJob;
 
-    /*
-    @POST
-    @Path("{openingTime}/{closingTime}")
-    public Response add(@PathParam("openingTime") String openingTime, @PathParam("closingTime") String closingTime) {
-        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime startingTimeFormat = LocalDateTime.parse(openingTime, format);
-        LocalDateTime closingTimeFormat = LocalDateTime.parse(closingTime, format);
-        TimeTable timeTable = new TimeTable(OperatingRoom.listAll(), Surgery.listAll(), ScheduledSurgery.listAll(), startingTimeFormat, closingTimeFormat);
-        return Response.accepted(timeTable).build();
-    }
-     */
     @GET
     public TimeTable getTimeTable() throws ExecutionException, InterruptedException {
         SolverStatus solverStatus = getSolverStatus();

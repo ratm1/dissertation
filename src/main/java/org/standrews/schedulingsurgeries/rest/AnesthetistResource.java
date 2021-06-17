@@ -13,8 +13,9 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class AnesthetistResource {
-    private static final Long SINGLETON_TIME_TABLE_ID = 1L;
-
+    /**
+     * VERIFIFCATION CORRECT
+     */
     @POST
     @Path("{anesthetistId}/{firstName}/{lastName}")
     public Response add(@PathParam("anesthetistId") Long anesthetistId, @PathParam("firstName") String firstName,

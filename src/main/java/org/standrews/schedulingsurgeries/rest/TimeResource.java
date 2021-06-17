@@ -16,8 +16,13 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class TimeResource {
-
-    private static final Long SINGLETON_TIME_TABLE_ID = 1L;
+    /**
+     * VERIFICATION COMPLETE
+     * @param timeId
+     * @param openingTime
+     * @param closingTime
+     * @return
+     */
     @POST
     @Path("{timeId}/{openingTime}/{closingTime}")
     public Response add(@PathParam("timeId") Long timeId, @PathParam("openingTime") String openingTime,

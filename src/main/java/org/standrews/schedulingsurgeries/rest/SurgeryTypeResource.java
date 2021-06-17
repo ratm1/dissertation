@@ -13,6 +13,12 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class SurgeryTypeResource {
+    /**
+     * VERIFICATION CORRECT
+     * @param code
+     * @param name
+     * @return
+     */
     @POST
     @Path("{code}/{name}")
     public Response add(@PathParam("code") String code, @PathParam("name") String name) {
@@ -39,7 +45,7 @@ public class SurgeryTypeResource {
 
     @GET
     @Path("{code}")
-    public Long isPatientCreated(@PathParam("code") String code){
+    public Long obtainSurgeryTypeIdentification(@PathParam("code") String code){
         List<SurgeryType> surgeryTypes = SurgeryType.listAll();
         for (SurgeryType surgeryType: surgeryTypes) {
               if (surgeryType.getCode().equals(code)) {

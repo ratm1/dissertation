@@ -11,12 +11,15 @@ import java.util.List;
 public class TimeTableConstraintProviderTest {
 
     private final ConstraintVerifier<TimeTableConstraintProvider, TimeTable> constraintVerifier =
-            ConstraintVerifier.build(new TimeTableConstraintProvider(), TimeTable.class, ScheduledSurgery.class);
+            ConstraintVerifier.build(new TimeTableConstraintProvider(), TimeTable.class, Surgery.class);
 
     @Test
     public void operatingRoomConflict(){
-        LocalDateTime openingOperatingRoom = LocalDateTime.of(2021, 06, 14, 8, 30);
-        LocalDateTime closingOperationRoom = LocalDateTime.of(2021, 06, 18, 20, 00);
+        LocalDateTime openingOperatingRoom = LocalDateTime.of(2019, 11, 4, 7, 30);
+        LocalDateTime closingOperationRoom = LocalDateTime.of(2019, 11, 8, 20, 30);
+
+        List<Time> times = new ArrayList<>();
+        times.add(new Time(openingOperatingRoom,closingOperationRoom));
 
         List<Insurance> insurances = new ArrayList<>();
         insurances.add(new Insurance("Particular"));
@@ -49,38 +52,29 @@ public class TimeTableConstraintProviderTest {
         anesthetists.add(new Anesthetist(456, "NA", "NA"));
 
         List<Procedure> procedures = new ArrayList<>();
-        /*
-        procedures.add(new Procedure(234, specialities.get(0), "Cesariana (feto unico)"));
-        procedures.add(new Procedure(567, specialities.get(1), "Resseccao de Tumor de Partes Moles"));
-        procedures.add(new Procedure(891, specialities.get(2), "Descolamento Epifisario do Umero - Tratamento Cirurgico"));
 
-         */
+        procedures.add(new Procedure("Cesariana (feto unico)", specialities.get(0)));
+        procedures.add(new Procedure("Resseccao de Tumor de Partes Moles", specialities.get(1)));
+        procedures.add(new Procedure("Descolamento Epifisario do Umero - Tratamento Cirurgico", specialities.get(2)));
 
         List <OperatingRoom> operatingRooms = new ArrayList<>();
-        /**
-         * FIX THIS
-         */
 
-        /*
-        operatingRooms.add(new OperatingRoom("Centro Cirúrgico Sala 3", openingOperatingRoom, closingOperationRoom));
-        operatingRooms.add(new OperatingRoom("Centro Cirúrgico Sala 5", openingOperatingRoom, closingOperationRoom));
-
-        Surgery surgeryOne = new Surgery(patients.get(0), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), insurances.get(0), procedures.get(0),  40);
-        Surgery surgeryTwo = new Surgery(patients.get(1), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), insurances.get(1), procedures.get(1),  40);
+        operatingRooms.add(new OperatingRoom("Centro Cirúrgico Sala 3", times.get(0)));
+        operatingRooms.add(new OperatingRoom("Centro Cirúrgico Sala 5", times.get(0)));
 
         LocalDateTime startTimeSurgery = LocalDateTime.of(2021, 06, 14, 10, 30);
-        ScheduledSurgery scheduledSurgeryOne = new ScheduledSurgery(surgeryOne);
-        ScheduledSurgery scheduledSurgeryTwo = new ScheduledSurgery(surgeryTwo);
+        Surgery scheduledSurgeryOne = new Surgery(patients.get(0), surgeons.get(0), anesthesiaTypes.get(0), anesthetists.get(0),  surgeryTypeList.get(0), procedures.get(0),  40);
+        Surgery scheduledSurgeryTwo = new Surgery(patients.get(1), surgeons.get(1), anesthesiaTypes.get(1), anesthetists.get(1),  surgeryTypeList.get(0), procedures.get(1),  40);
+
         scheduledSurgeryOne.setStartingTimeSurgery(startTimeSurgery);
         scheduledSurgeryOne.setOperatingRoom(operatingRooms.get(0));
-        scheduledSurgeryOne.setScheduleSurgeryId(121);
+        scheduledSurgeryOne.setSurgeryId(11L);
         scheduledSurgeryTwo.setStartingTimeSurgery(startTimeSurgery);
         scheduledSurgeryTwo.setOperatingRoom(operatingRooms.get(0));
-        scheduledSurgeryTwo.setScheduleSurgeryId(234);
+        scheduledSurgeryTwo.setSurgeryId(22L);
 
         constraintVerifier.verifyThat(TimeTableConstraintProvider::operatingRoomConflict)
                 .given(scheduledSurgeryOne, scheduledSurgeryTwo)
                 .penalizes(1);
-         */
     }
 }
