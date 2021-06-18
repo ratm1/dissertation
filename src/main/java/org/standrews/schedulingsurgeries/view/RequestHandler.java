@@ -244,24 +244,30 @@ public class RequestHandler {
         Integer durationPrediction = -1;
         org.json.simple.JSONArray jsonArray = new org.json.simple.JSONArray();
         org.json.simple.JSONObject surgery = new org.json.simple.JSONObject();
-        surgery.put("surgeon_id", surgeonId);
+        surgery.put("surgeon_id", surgeonId.intValue());
         surgery.put("anesthesia_type_code", anesthesiaTypeCode);
-        surgery.put("anesthetist_id", anesthetistId);
+        surgery.put("anesthetist_id", anesthetistId.intValue());
         surgery.put("speciality", speciality);
         surgery.put("surgery_type_code", surgeryType);
         surgery.put("procedure_name", surgeryName);
         jsonArray.add(surgery);
-
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         try {
+            System.out.println(surgeonId);
+            System.out.println(anesthesiaTypeCode);
+            System.out.println(anesthetistId);
+            System.out.println(speciality);
+            System.out.println(surgeryType);
+            System.out.println(surgeryName);
+
             HttpPost request = new HttpPost("http://localhost:12345/prediction");
             StringEntity params = new StringEntity(jsonArray.toString());
-
             request.addHeader("content-type", "application/json");
             request.setEntity(params);
             CloseableHttpResponse response = httpClient.execute(request);
             String responseJSON = EntityUtils.toString(response.getEntity());
             JSONObject newVersionJson = new JSONObject(responseJSON);
+            System.out.println((newVersionJson.getFloat("prediction")));
             durationPrediction = Math.round(newVersionJson.getFloat("prediction"));
             return durationPrediction ;
         } catch (Exception ex) {
