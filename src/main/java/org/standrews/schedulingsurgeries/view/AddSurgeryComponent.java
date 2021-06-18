@@ -253,12 +253,6 @@ public class AddSurgeryComponent extends JPanel {
                     Long surgeryTypeId = requestHandler.getSurgeryTypeId(surgeryTypeCode);
                     Long procedureId = requestHandler.getProcedureId(procedureName);
 
-                    System.out.println(surgeonId);
-                    System.out.println(anesthesiaTypeCode);
-                    System.out.println(anesthetistId);
-                    System.out.println(speciality);
-                    System.out.println(surgeryTypeCode);
-                    System.out.println(procedureName);
                     if (neuralNetworksBox.isSelected()){
                         System.out.println("THE CHECKBOX HAS BEEN SELECTED");
                         duration = requestHandler.getDuration(surgeonId, anesthesiaTypeCode, anesthetistId, speciality,
@@ -267,7 +261,6 @@ public class AddSurgeryComponent extends JPanel {
                         System.out.println("THE CHECKBOX HAS NOT BEEN SELECTED");
                         duration = Integer.valueOf(durationTextField.getText());
                     }
-                    System.out.println(duration);
                        requestHandler.postSurgery(patientId, surgeonId, anesthesiaId, anesthetistId, surgeryTypeId, procedureId, duration);
                 } catch (NumberFormatException | IOException exception) {
                     String message = "Review that all fields are filled";

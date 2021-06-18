@@ -253,13 +253,6 @@ public class RequestHandler {
         jsonArray.add(surgery);
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         try {
-            System.out.println(surgeonId);
-            System.out.println(anesthesiaTypeCode);
-            System.out.println(anesthetistId);
-            System.out.println(speciality);
-            System.out.println(surgeryType);
-            System.out.println(surgeryName);
-
             HttpPost request = new HttpPost("http://localhost:12345/prediction");
             StringEntity params = new StringEntity(jsonArray.toString());
             request.addHeader("content-type", "application/json");
@@ -267,7 +260,6 @@ public class RequestHandler {
             CloseableHttpResponse response = httpClient.execute(request);
             String responseJSON = EntityUtils.toString(response.getEntity());
             JSONObject newVersionJson = new JSONObject(responseJSON);
-            System.out.println((newVersionJson.getFloat("prediction")));
             durationPrediction = Math.round(newVersionJson.getFloat("prediction"));
             return durationPrediction ;
         } catch (Exception ex) {

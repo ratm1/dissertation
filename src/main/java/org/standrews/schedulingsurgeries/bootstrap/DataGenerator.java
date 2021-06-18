@@ -89,7 +89,6 @@ public class DataGenerator {
         operatingRooms.add(new OperatingRoom("Hemodinâmica 1", times.get(0)));
         OperatingRoom.persist(operatingRooms);
 
-
         List <Surgery> surgeries = new ArrayList<>();
         surgeries.add(new Surgery(patients.get(0),surgeons.get(0),anesthesiaTypes.get(0),anesthetists.get(0),surgeryTypeList.get(0),procedures.get(0),51));
         Surgery.persist(surgeries);
