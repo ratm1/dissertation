@@ -6,8 +6,6 @@ import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Path("/surgeries")
@@ -15,17 +13,7 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class SurgeryResource {
-    /**
-     * REVIEW *************
-     * @param patientId
-     * @param surgeonId
-     * @param anesthesiaId
-     * @param anesthetistId
-     * @param surgeryTypeId
-     * @param procedureId
-     * @param duration
-     * @return
-     */
+
     @POST
     @Path("{patientId}/{surgeonId}/{anesthesiaId}/{anesthetistId}/{surgeryTypeId}/{procedureId}/{duration}")
     public Response add(@PathParam("patientId") Long patientId, @PathParam("surgeonId") Long surgeonId,

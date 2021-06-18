@@ -84,13 +84,13 @@ public class AddSurgeryComponent extends JPanel {
         /**
          * Patient id
          */
-        patientLabel = new JLabel("Patient id "); //REVIEW QUERY
+        patientLabel = new JLabel("Patient id ");
         Integer patientIds[] = requestHandler.getPatientIds();
         patientBox = new JComboBox(patientIds);
         /**
          * Surgeon id
          */
-        surgeonLabel = new JLabel("Surgeon id "); // REVIEW QUERY
+        surgeonLabel = new JLabel("Surgeon id ");
         Integer surgeonIds[] = requestHandler.getSurgeonIds();
         surgeonBox = new JComboBox(surgeonIds);
         /**
@@ -102,20 +102,20 @@ public class AddSurgeryComponent extends JPanel {
         /**
          * Anesthetist
          */
-        anesthetistLabel = new JLabel("Anesthetist id "); // REVIEW QUERY
+        anesthetistLabel = new JLabel("Anesthetist id ");
         Integer anesthetistIds[] = requestHandler.getAnesthetistIds();
         anesthetistBox = new JComboBox(anesthetistIds);
         /**
          * Surgery type
          */
         surgeryTypeCodeLabel = new JLabel("Surgery type code ");
-        String surgeryTypesCode[] = requestHandler.getSurgeryTypeCodes(); // REVIEW
+        String surgeryTypesCode[] = requestHandler.getSurgeryTypeCodes();
         surgeryTypeCodeBox = new JComboBox(surgeryTypesCode);
         /**
          * Procedure - HERE
          */
         procedureLabel = new JLabel("Procedure ");
-        String procedures[] = requestHandler.getProcedures(); // REVIEW
+        String procedures[] = requestHandler.getProcedures();
         procedureBox = new JComboBox(procedures);
         /**
          * Duration

@@ -13,14 +13,6 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class PatientResource {
-    /**
-     * VERIFICATION CORRECT
-     * @param patientId
-     * @param firstName
-     * @param lastName
-     * @param insuranceId
-     * @return
-     */
     @POST
     @Path("{patientId}/{firstName}/{lastName}/{insuranceId}")
     public Response add(@PathParam("patientId") Long patientId, @PathParam("firstName") String firstName,

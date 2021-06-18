@@ -8,7 +8,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
 
 @QuarkusTest
 public class AnesthetistResourceTest {
@@ -18,7 +17,7 @@ public class AnesthetistResourceTest {
                given()
                .when().get("/anesthetists")
                .then()
-               .statusCode(200);
+                .statusCode(Response.Status.OK.getStatusCode());
     }
 
 

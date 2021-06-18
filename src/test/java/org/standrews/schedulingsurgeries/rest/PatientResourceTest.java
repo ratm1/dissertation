@@ -10,11 +10,8 @@ import javax.json.JsonObject;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.UUID;
-
 import static io.restassured.RestAssured.given;
-import static io.restassured.RestAssured.when;
-import static org.hamcrest.CoreMatchers.is;
+
 
 @QuarkusTest
 public class PatientResourceTest {
@@ -24,15 +21,9 @@ public class PatientResourceTest {
                given()
                .when().get("/patients")
                .then()
-               .statusCode(200)
-               .body("[0].patientId", is(1112),
-                "[0].firstName", is("NA"),
-                        "[0].lastName", is("NA"));
+               .statusCode(Response.Status.OK.getStatusCode());
     }
 
-    /**
-     * Review this part
-     */
     @Test
     public void testPatient(){
         JsonObject jsonObject = Json.createObjectBuilder()

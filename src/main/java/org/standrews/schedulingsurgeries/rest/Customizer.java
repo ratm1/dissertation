@@ -2,7 +2,6 @@ package org.standrews.schedulingsurgeries.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
 import io.quarkus.jackson.ObjectMapperCustomizer;
 
 import javax.inject.Singleton;

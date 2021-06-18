@@ -1,6 +1,5 @@
 package org.standrews.schedulingsurgeries.rest;
 
-import org.standrews.schedulingsurgeries.domain.AnesthesiaType;
 import org.standrews.schedulingsurgeries.domain.Procedure;
 import org.standrews.schedulingsurgeries.domain.Speciality;
 
@@ -15,12 +14,6 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class ProcedureResource {
-    /**
-     * VERIFICATION CORRECT
-     * @param name
-     * @param specialityId
-     * @return
-     */
     @POST
     @Path("{name}/{specialityId}")
     public Response add(@PathParam("name") String name, @PathParam("specialityId") Long specialityId) {

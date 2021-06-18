@@ -23,12 +23,12 @@ public class AnesthesiaTypeResourceTest {
 
 
     @Test
-    public void testAddAndDeleteAnesthesiaType(){
+    public void testAddAndDeleteAnesthesiaType() {
         JsonObject jsonObject = Json.createObjectBuilder()
-                                .add("code", 20)
-                                .build();
+                .add("code", 20)
+                .build();
 
-                 given()
+        given()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(jsonObject.toString())
                 .when()
@@ -36,17 +36,5 @@ public class AnesthesiaTypeResourceTest {
                 .then()
                 .statusCode(Response.Status.ACCEPTED.getStatusCode());
 
-                 given()
-                 .when()
-                 .delete("/anesthesiatypes/3")
-                 .then()
-                 .statusCode(Response.Status.OK.getStatusCode());
-
-                 given()
-                .when()
-                .delete("/anesthesiatypes/56")
-                .then()
-                .statusCode(Response.Status.NOT_FOUND.getStatusCode());
     }
-
 }

@@ -1,10 +1,5 @@
 package org.standrews.schedulingsurgeries.view;
 
-import org.json.JSONObject;
-
-import java.awt.*;
-import java.time.LocalDateTime;
-import java.util.StringTokenizer;
 
 public class ListInformationSurgeriesView {
     private int surgeryId;

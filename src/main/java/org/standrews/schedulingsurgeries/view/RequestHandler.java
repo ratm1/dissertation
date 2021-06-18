@@ -1,6 +1,4 @@
 package org.standrews.schedulingsurgeries.view;
-
-import io.vertx.core.json.JsonArray;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -12,7 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.swing.*;
-import javax.ws.rs.PathParam;
 import java.io.IOException;
 
 public class RequestHandler {
@@ -440,24 +437,4 @@ public class RequestHandler {
                 JOptionPane.ERROR_MESSAGE);
     }
 
-    /*
-    public HashMap<Integer, ArrayList> getSurgeriesTwo() throws IOException {
-        HashMap<Integer, ArrayList> scheduledSurgeriesMap = new HashMap<>();
-        String responseJSON = "";
-        CloseableHttpClient httpClient = HttpClientBuilder.create().build();
-        try {
-            HttpGet request = new HttpGet("http://localhost:8080/surgeries");
-            request.addHeader("content-type", "application/json");
-            CloseableHttpResponse response = httpClient.execute(request);
-            responseJSON = EntityUtils.toString(response.getEntity(),  "UTF-8");
-            return scheduledSurgeriesMap;
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            httpClient.close();
-        }
-        return scheduledSurgeriesMap;
-    }
-     */
 }

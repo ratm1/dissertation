@@ -1,6 +1,5 @@
 package org.standrews.schedulingsurgeries.rest;
 
-import org.standrews.schedulingsurgeries.domain.OperatingRoom;
 import org.standrews.schedulingsurgeries.domain.Time;
 
 import javax.transaction.Transactional;
@@ -16,13 +15,7 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class TimeResource {
-    /**
-     * VERIFICATION COMPLETE
-     * @param timeId
-     * @param openingTime
-     * @param closingTime
-     * @return
-     */
+
     @POST
     @Path("{timeId}/{openingTime}/{closingTime}")
     public Response add(@PathParam("timeId") Long timeId, @PathParam("openingTime") String openingTime,

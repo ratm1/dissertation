@@ -34,7 +34,7 @@ public class ScheduleView {
     private JScrollPane scrollPanelSurgeries;
     private AddSurgeryComponent addSurgeryPanel;
     /**
-     * Strings from buttons.
+     * Strings for the buttons.
      */
     protected static String BUTTON_ADD_SURGERIES = "ADD SURGERIES";
     protected static String BUTTON_ADD_INFORMATION_SURGERY = "ADD INFORMATION SURGERY";
@@ -85,13 +85,13 @@ public class ScheduleView {
         mainFrame.pack();
 
         requestHandler = new RequestHandler();
-      //  mainFrame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
     }
 
     public void addTabRooms() throws IOException {
         mainFrame.remove(panelWelcome);
         mainFrame.remove(scrollPanelSurgeries);
         mainFrame.remove(panelAddSurgeries);
+        mainFrame.remove(addSurgeryPanel);
         int numberOfRooms = requestHandler.getNumberOperatingRooms();
         String response = requestHandler.getSolution();
         this.parseRoomsJson(response);
@@ -129,17 +129,12 @@ public class ScheduleView {
     }
 
     public void addListSurgeries() throws IOException {
-        /**
-         * IMPORTANT
-         */
         mainFrame.remove(panelWelcome);
         mainFrame.remove(tabsOperatingRooms);
         mainFrame.remove(operatingRoomsInformation);
         mainFrame.remove(panelAddSurgeries);
         mainFrame.remove(addSurgeryPanel);
-        /**
-         * REVIEW THIS PART IS FOR THE REQUEST CALL
-         */
+
         String response = requestHandler.getSurgeries();
         this.parseInformationSurgeriesJson(response);
         ArrayList<ListInformationSurgeriesView> listInformationSurgeriesView = new ArrayList<>();
@@ -243,7 +238,6 @@ public class ScheduleView {
         viewListSurgeriesButton = new JButton(BUTTON_VIEW_SURGERIES);
         scheduleSurgeriesButton = new JButton(BUTTON_SCHEDULE_SURGERIES);
         viewScheduleButton = new JButton(BUTTON_VIEW_SCHEDULE);
-      //  addInformationSurgery = new JButton(BUTTON_ADD_INFORMATION_SURGERY);
         viewScheduleButton.setEnabled(false);
         panelButtons = new JPanel();
         panelButtons.setPreferredSize(new Dimension(1000, 40));
@@ -254,16 +248,11 @@ public class ScheduleView {
         panelButtons.add(viewScheduleButton);
         addButtonsListener();
     }
-    /**
-     * Method for buttons listener
-     */
+
     public void addButtonsListener() {
-        /**
-         * Action for the add surgeries button
-         */
+
         addSurgeriesButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("ADD SURGERIES BUTTON");
                 try {
                     addSurgeryInformation();
                 } catch (IOException ioException) {
@@ -271,12 +260,9 @@ public class ScheduleView {
                 }
             }
         });
-        /**
-         * Action for the view surgeries button
-         */
+
         viewListSurgeriesButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.out.println("VIEW SURGERIES BUTTON");
                 try {
                     addListSurgeries();
                 } catch (IOException ioException) {
@@ -284,13 +270,10 @@ public class ScheduleView {
                 }
             }
         });
-        /**
-         * Action for the schedule surgeries button
-         */
+
         scheduleSurgeriesButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    System.out.println("SCHEDULE SURGERIES BUTTON");
                     requestHandler.solve();
                     viewScheduleButton.setEnabled(true);
                 } catch (IOException ioException) {
@@ -298,13 +281,9 @@ public class ScheduleView {
                 }
             }
         });
-        /**
-         * Action for the the view surgeries button
-         */
         viewScheduleButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
-                    System.out.println("VIEW SCHEDULE BUTTON");
                     addTabRooms();
                 } catch (IOException ioException) {
                     ioException.printStackTrace();

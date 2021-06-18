@@ -5,7 +5,6 @@ import org.optaplanner.core.api.score.stream.Constraint;
 import org.optaplanner.core.api.score.stream.ConstraintFactory;
 import org.optaplanner.core.api.score.stream.ConstraintProvider;
 import org.optaplanner.core.api.score.stream.Joiners;
-import org.standrews.schedulingsurgeries.domain.ScheduledSurgery;
 import org.standrews.schedulingsurgeries.domain.Surgery;
 
 public class TimeTableConstraintProvider  implements ConstraintProvider {
@@ -16,24 +15,6 @@ public class TimeTableConstraintProvider  implements ConstraintProvider {
                 availableTimeOperatingTheater(constraintFactory)
         };
     }
-
-    /*
-    public Constraint operatingRoomConflict(ConstraintFactory constraintFactory) {
-        return constraintFactory.from(ScheduledSurgery.class)
-                .join(ScheduledSurgery.class,
-                        Joiners.equal(ScheduledSurgery::getOperatingRoom),
-                        Joiners.overlapping(ScheduledSurgery::getStartingTimeSurgery, ScheduledSurgery::getFinishingTimeSurgery),
-                        Joiners.lessThan(ScheduledSurgery::getScheduleSurgeryId))
-                .penalize("Conflict operating room", HardSoftScore.ONE_HARD);
-    }
-
-
-    public Constraint availableTimeOperatingTheater(ConstraintFactory constraintFactory) {
-        return constraintFactory.from(ScheduledSurgery.class)
-                .filter((scheduledSurgery -> scheduledSurgery.availableTime() == false))
-                .penalize("Conflict unavailable time", HardSoftScore.ONE_HARD);
-    }
-     */
 
     public Constraint operatingRoomConflict(ConstraintFactory constraintFactory) {
         return constraintFactory.from(Surgery.class)

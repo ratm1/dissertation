@@ -221,11 +221,4 @@ public class Surgery extends PanacheEntityBase {
         information.append(finishingTimeSurgery);
         return information.toString();
     }
-
-    /*
-    @Override
-    public String toString() {
-        return "Surgery: " +  this.getSurgeryId() +" Procedure: " + this.getProcedure().getName();
-    }
-     */
 }

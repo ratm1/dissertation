@@ -1,8 +1,6 @@
 package org.standrews.schedulingsurgeries.rest;
 
 import org.standrews.schedulingsurgeries.domain.*;
-
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -14,12 +12,6 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class InsuranceResource {
-    /**
-     * VERIFICATION CORRECT
-     * @param name
-     * @return
-     */
-
     @POST
     @Path("{name}")
     public Response add(@PathParam("name") String name) {

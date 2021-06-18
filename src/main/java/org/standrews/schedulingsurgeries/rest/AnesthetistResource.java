@@ -13,9 +13,6 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class AnesthetistResource {
-    /**
-     * VERIFIFCATION CORRECT
-     */
     @POST
     @Path("{anesthetistId}/{firstName}/{lastName}")
     public Response add(@PathParam("anesthetistId") Long anesthetistId, @PathParam("firstName") String firstName,

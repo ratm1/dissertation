@@ -1,10 +1,7 @@
 package org.standrews.schedulingsurgeries.rest;
 
-import org.standrews.schedulingsurgeries.domain.Procedure;
 import org.standrews.schedulingsurgeries.domain.Speciality;
 import org.standrews.schedulingsurgeries.domain.Surgeon;
-import org.standrews.schedulingsurgeries.domain.SurgeryType;
-
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -16,14 +13,7 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class SurgeonResource {
-    /**
-     * VERIFICATION CORRECT
-     * @param surgeonId
-     * @param firstName
-     * @param lastName
-     * @param specialityId
-     * @return
-     */
+
     @POST
     @Path("{surgeonId}/{firstName}/{lastName}/{specialityId}")
     public Response add(@PathParam("surgeonId") Long surgeonId, @PathParam("firstName") String firstName,

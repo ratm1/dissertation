@@ -1,7 +1,6 @@
 package org.standrews.schedulingsurgeries.rest;
 
 import org.standrews.schedulingsurgeries.domain.*;
-
 import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -13,9 +12,6 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class AnesthesiaTypeResource {
-    /**
-     * VERIFICATION CORRECT
-     */
 
     @POST
     @Path("{code}")

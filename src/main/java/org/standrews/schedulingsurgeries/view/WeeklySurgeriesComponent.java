@@ -13,9 +13,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 public class WeeklySurgeriesComponent extends JComponent {
-    /**
-     * Surgeries view
-     */
     private ArrayList<SurgeryView> surgeryViews;
     private static final LocalDateTime START_WEEK = LocalDateTime.of(2019, 11, 4, 7, 30);
     private static final LocalDateTime FINAL_WEEK = LocalDateTime.of(2019, 11, 8, 20, 30);
@@ -65,10 +62,6 @@ public class WeeklySurgeriesComponent extends JComponent {
         double xCoordinate = 0;
         for (LocalDate date = openingDate; date.isBefore(closingDateOR.plusDays(1)); date = date.plusDays(1)) {
             xCoordinate = getWidthOfEachDay(date.getDayOfWeek().getValue()) + 5;
-            /**
-             * REVIEW THIS PART
-             * graphics.draw(new Line2D.Double(x1,y1,x1,y2))
-             */
             this.graphics.draw(new Line2D.Double(xCoordinate, HEIGHT_DAYS, xCoordinate, this.getHeightTime(closingTimeOR.toSecondOfDay())));
         }
     }

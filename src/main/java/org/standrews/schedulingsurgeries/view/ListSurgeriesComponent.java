@@ -47,7 +47,6 @@ public class ListSurgeriesComponent extends JComponent {
             graphics.drawString(Integer.toString(eachInformationSurgery.getPatientId()), 120, (float) yOneCoordinate);
             graphics.drawString(Integer.toString(eachInformationSurgery.getSurgeonId()), 220, (float) yOneCoordinate);
             graphics.drawString(eachInformationSurgery.getSpecialityName(), 320, (float) yOneCoordinate);
-            System.out.println("Part of add list surgeries");
             System.out.println(eachInformationSurgery.getProcedure());
             graphics.drawString(eachInformationSurgery.getProcedure().trim(), 500, (float) yOneCoordinate);
             graphics.drawString(Integer.toString(eachInformationSurgery.getDuration()), 1000, (float) yOneCoordinate);

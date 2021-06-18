@@ -6,8 +6,6 @@ import javax.transaction.Transactional;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Path("/rooms")
@@ -15,12 +13,6 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional
 public class OperatingRoomResource {
-    /**
-     * VERIFICATION CORRECT
-     * @param roomName
-     * @param timeId
-     * @return
-     */
     @POST
     @Path("{roomName}/{timeId}")
     public Response add(@PathParam("roomName") String roomName, @PathParam("timeId") Long timeId) {
