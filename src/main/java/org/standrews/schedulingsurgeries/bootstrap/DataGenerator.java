@@ -374,7 +374,7 @@ public class DataGenerator {
          * This part is for the surgeries in a weekly basis
          */
         List <Surgery> surgeries = new ArrayList<>();
-
+        /*
         surgeries.add(new Surgery(patients.get(0),surgeons.get(0),anesthesiaTypes.get(0),anesthetists.get(0),surgeryTypeList.get(0),procedures.get(0),51));
         surgeries.add(new Surgery(patients.get(1),surgeons.get(3),anesthesiaTypes.get(0),anesthetists.get(1),surgeryTypeList.get(0),procedures.get(1),43));
         surgeries.add(new Surgery(patients.get(2),surgeons.get(0),anesthesiaTypes.get(0),anesthetists.get(1),surgeryTypeList.get(0),procedures.get(2),66));
@@ -676,7 +676,7 @@ public class DataGenerator {
         surgeries.add(new Surgery(patients.get(17),surgeons.get(6),anesthesiaTypes.get(0),anesthetists.get(3),surgeryTypeList.get(0),procedures.get(14),147));
         surgeries.add(new Surgery(patients.get(17),surgeons.get(6),anesthesiaTypes.get(0),anesthetists.get(3),surgeryTypeList.get(0),procedures.get(14),244));
         surgeries.add(new Surgery(patients.get(17),surgeons.get(6),anesthesiaTypes.get(0),anesthetists.get(3),surgeryTypeList.get(0),procedures.get(14),126));
-
+        */
 
 
 

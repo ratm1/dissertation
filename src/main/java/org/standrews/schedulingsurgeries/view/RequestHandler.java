@@ -244,19 +244,19 @@ public class RequestHandler {
         Integer durationPrediction = -1;
         org.json.simple.JSONArray jsonArray = new org.json.simple.JSONArray();
         org.json.simple.JSONObject surgery = new org.json.simple.JSONObject();
-
         surgery.put("surgeon_id", surgeonId);
-        surgery.put("anesthesia_type", anesthesiaTypeCode);
-        surgery.put("anesthesist_id", anesthetistId);
+        surgery.put("anesthesia_type_code", anesthesiaTypeCode);
+        surgery.put("anesthetist_id", anesthetistId);
         surgery.put("speciality", speciality);
-        surgery.put("surgery_type", surgeryType);
-        surgery.put("surgery_name", surgeryName);
+        surgery.put("surgery_type_code", surgeryType);
+        surgery.put("procedure_name", surgeryName);
         jsonArray.add(surgery);
 
         CloseableHttpClient httpClient = HttpClientBuilder.create().build();
         try {
             HttpPost request = new HttpPost("http://localhost:12345/prediction");
             StringEntity params = new StringEntity(jsonArray.toString());
+
             request.addHeader("content-type", "application/json");
             request.setEntity(params);
             CloseableHttpResponse response = httpClient.execute(request);

@@ -261,7 +261,7 @@ public class AddSurgeryComponent extends JPanel {
                         System.out.println("THE CHECKBOX HAS NOT BEEN SELECTED");
                         duration = Integer.valueOf(durationTextField.getText());
                     }
-                        requestHandler.postSurgery(patientId, surgeonId, anesthesiaId, anesthetistId, surgeryTypeId, procedureId, duration);
+                       requestHandler.postSurgery(patientId, surgeonId, anesthesiaId, anesthetistId, surgeryTypeId, procedureId, duration);
                 } catch (NumberFormatException | IOException exception) {
                     String message = "Review that all fields are filled";
                     JOptionPane.showMessageDialog(new JFrame(), message, "Error",
